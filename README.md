@@ -1,11 +1,29 @@
-> Đây là khung repo nộp bài. Điền mọi chỗ `____`, giữ nguyên tên các mục. **Mục 0 xoá đi sau khi tạo repo xong.**
-> Giờ, mốc, luật, rubric: xem `README.md`, `02-guide.md`, `03-rubric.md` trong repo đề (bộ đề BTC phát).
 
-# [Tên nhóm] — [Tên lát cắt]
+# TheBoys — Socratic Debugger
 
-**Thành viên, lớp, track:** xem [TEAMS.md](TEAMS.md). **Điền TEAMS.md đúng format**: khi chấm và đánh giá, BTC quét file này để ghép điểm cho từng người.
+**Track:** A – EdTech
 
-*Lát cắt = phần nhỏ nhất làm xong được trong hackathon: một người dùng · một việc · một quyết định AI · một kết quả.*
+## 1. Bài toán nhóm lựa chọn
+
+Học viên AI20K khi làm Python Mini Lab thường gặp khó khăn trong việc xác định nguyên nhân khiến chương trình chạy được nhưng cho kết quả sai. Việc thử-sai hoặc nhận lời giải trực tiếp có thể giúp hoàn thành bài trước mắt nhưng chưa chắc giúp học viên hiểu cách tự phát hiện lỗi trong những bài tương tự.
+
+## 2. Lát cắt sản phẩm dự kiến
+
+Một học viên gửi đề bài Python Mini Lab, đoạn code và kết quả test sai; Socratic Debugger phân tích lỗi logic và đưa ra từng câu hỏi gợi mở để học viên tự tìm ra nguyên nhân, thay vì cung cấp lời giải hoàn chỉnh.
+
+## 3. Nguyên tắc sản phẩm
+
+- Chỉ hỗ trợ Python Mini Lab trong phiên bản MVP.
+- Tập trung vào lỗi logic khiến chương trình cho kết quả sai.
+- Hướng dẫn theo từng cấp độ: quan sát → định hướng → gợi ý khái niệm → ví dụ tương tự.
+- Không cung cấp lời giải hoàn chỉnh hoặc tự động sửa code.
+- Nếu thiếu đề bài hoặc kết quả test, yêu cầu học viên bổ sung thông tin.
+- Học viên luôn là người quyết định và thực hiện việc sửa code.
+
+---
+
+**Thành viên, lớp, track:** xem [TEAMS.md](TEAMS.md).
+
 
 ---
 

@@ -1,4 +1,4 @@
-# Canvas — [tên nhóm] · Track [A–F]
+# Canvas — The Boys · Track A
 
 > Điền ở guide bước 1.4. CP1 17:00 Thứ Sáu 27/11: nộp bản đầu, đủ 7 dòng (dòng 4 được ghi giả thuyết + nguồn sẽ kiểm).
 > CP2 19:30 Thứ Sáu 27/11: cập nhật (số bằng chứng đầu, lát cắt đã chốt) và điền dòng "Đã đổi gì so với CP1".
@@ -6,11 +6,11 @@
 
 | # | Dòng | Nhóm điền |
 |---|---|---|
-| 1 | Track + lát cắt dự kiến | |
-| 2 | Người dùng chính (một vai cụ thể — không phải "học viên nói chung") | |
-| 3 | Pain một câu: ai — đang làm gì — vướng đâu — hậu quả | |
-| 4 | Bằng chứng đầu — CP1: giả thuyết + nguồn sẽ kiểm · CP2: số đầu tiên + 1 trích dẫn | |
-| 5 | **Lát cắt MỘT CÂU** (1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả) | |
-| 6 | AI tự làm đến đâu + 1 dòng lý do: sai thì ai chịu gì | |
-| 7 | Phân công có tên | |
-| — | *(CP2)* Đã đổi gì so với CP1 | |
+| 1 | Track + lát cắt dự kiến | Track A – EdTech. Socratic Debugger: trợ lý hỗ trợ học viên tự phát hiện và sửa lỗi logic trong Python Mini Lab thông qua các câu hỏi gợi mở theo từng cấp độ, thay vì cung cấp lời giải hoàn chỉnh. |
+| 2 | Người dùng chính (một vai cụ thể — không phải "học viên nói chung") | Học viên AI20K lớp L3A đã học kiến thức Python cơ bản và đang trực tiếp thực hiện Python Mini Lab nhưng gặp khó khăn khi chương trình chạy được mà kết quả không đúng yêu cầu. |
+| 3 | Pain một câu: ai — đang làm gì — vướng đâu — hậu quả | Học viên AI20K lớp L3A khi thực hiện Python Mini Lab gặp khó khăn trong việc xác định nguyên nhân khiến chương trình chạy nhưng cho kết quả sai, dẫn đến mất thời gian thử-sai, phải tìm trợ giúp hoặc phụ thuộc vào lời giải có sẵn mà chưa hiểu cách tự debug. |
+| 4 | Bằng chứng đầu — CP1: giả thuyết + nguồn sẽ kiểm · CP2: số đầu tiên + 1 trích dẫn | Giả thuyết: một bộ phận học viên gặp khó khăn khi tự xử lý lỗi trong quá trình thực hành Mini Lab và cần được hướng dẫn theo từng bước thay vì nhận đáp án trực tiếp. Nguồn kiểm chứng: dữ liệu hành vi pre-class do BTC cung cấp (đặc biệt events, answers, chat); phỏng vấn ít nhất 3 học viên AI20K ngoài nhóm và lab coach. Dữ liệu hành vi chỉ được dùng để nhận diện dấu hiệu khó khăn trong quá trình học, không mặc định kết luận đó là lỗi logic Python. |
+| 5 | **Lát cắt MỘT CÂU** (1 người dùng · 1 việc · 1 quyết định AI · 1 kết quả) | Một học viên AI20K gửi đề bài Python Mini Lab, đoạn code và kết quả test sai; Socratic Debugger phân tích tình huống và đưa ra một câu hỏi gợi mở phù hợp để học viên tự xác định nguyên nhân gây lỗi logic. |
+| 6 | AI tự làm đến đâu + 1 dòng lý do: sai thì ai chịu gì | AI tiếp nhận đề bài, code và kết quả test; phân tích nguyên nhân có khả năng gây lỗi, xác định cấp độ gợi ý và tạo câu hỏi Socratic theo trình tự: quan sát kết quả → định hướng khu vực cần kiểm tra → gợi ý kiến thức liên quan → ví dụ tương tự. AI không tự sửa code, không đưa lời giải hoàn chỉnh và phải yêu cầu bổ sung thông tin nếu dữ liệu đầu vào thiếu. Học viên chịu trách nhiệm kiểm chứng gợi ý và quyết định sửa code; nếu AI nhận định sai, học viên có thể bị dẫn hướng sai nên hệ thống phải thể hiện tính chưa chắc chắn và không khẳng định nguyên nhân khi thiếu căn cứ. |
+| 7 | Phân công có tên | Lê Đoàn Dương (Đội trưởng): điều phối nhóm, quản lý tiến độ và checkpoint; phân tích dữ liệu pre-class; tích hợp các thành phần sản phẩm; kiểm tra chất lượng và tổng hợp báo cáo. Kiều Đình Văn: nghiên cứu người dùng; phỏng vấn học viên/lab coach; xác định pain point; thu thập và tổng hợp bằng chứng thực tế; hoàn thiện Product Canvas và Problem Statement. Nguyễn Cảnh Hiếu: thiết kế kiến trúc và workflow Socratic Debugger; xây dựng prompt và cơ chế gợi ý theo cấp độ; phát triển AI prototype và giao diện tương tác. Bùi Lê Công Tuấn: xây dựng benchmark và test cases; thiết kế metric đánh giá; chạy thử, phân tích lỗi và cải thiện kết quả; chuẩn bị slide và demo sản phẩm. |
+| — | *(CP2)* Đã đổi gì so với CP1 | Chưa áp dụng — sẽ cập nhật tại CP2. |

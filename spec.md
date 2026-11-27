@@ -11,11 +11,11 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 - Công cụ / AI đang được dùng cho việc này (nếu có) + nguồn. Không kiểm được thì ghi "chưa kiểm":
 
 ## §1. Người dùng & bằng chứng *(guide 1.1, 1.2)*
-- Người dùng chính (một vai cụ thể):
-- Việc họ cố làm xong (`động từ + đối tượng + bối cảnh`, không có chữ AI):
-- Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ:
-- Pain (KHÔNG chữ AI): ai — đang làm gì — vướng đâu — hậu quả gì:
-- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): __
+- Người dùng chính (một vai cụ thể): học viên AI20K lớp L3A đã học Python cơ bản, đang tự làm Python Mini Lab và gặp trường hợp code chạy được (không báo lỗi) nhưng kết quả sai so với đề / test.
+- Việc họ cố làm xong (`động từ + đối tượng + bối cảnh`, không có chữ AI): tìm ra nguyên nhân khiến code Python Mini Lab cho kết quả sai, để tự sửa và nộp bài đúng hạn trong buổi thực hành.
+- Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ: tự đọc lại code (10/16 người trả lời khảo sát), in giá trị trung gian bằng `print` (8/16), dán code vào ChatGPT / AI khác (7/16), chạy tay với input nhỏ (6/16), hỏi bạn (4/16), hỏi lab coach (P4 nhớ 4 lượt hỏi trong một buổi ~18 học viên, 5–10 phút mỗi lượt). Hỏng ở chỗ: không biết nên kiểm từ đâu trước (đầu vào, vòng lặp hay điều kiện); khi dán vào AI hoặc xem lời giải thì nhận được cách sửa nhưng chỉ hiểu một phần vì sao sai (0/8 người dùng AI / lời giải tự giải thích được đầy đủ). Chưa bỏ vì `print` và input nhỏ giúp tự tìm ra lỗi (P1, P3), còn ChatGPT cho kết quả nhanh.
+- Pain (KHÔNG chữ AI): học viên L3A — đang làm Python Mini Lab, code chạy được nhưng ra kết quả sai — vướng ở khâu khoanh vùng chỗ sai logic, không có cách kiểm tra theo thứ tự — hậu quả: mất thời gian thử-sai (khảo sát: lần gần nhất mất trên 30 phút ở 14/19 người, L3A 6/10), có người bỏ bài (2/19) hoặc chép cách sửa mà không giải thích được vì sao sai, nên gặp lỗi tương tự lần sau vẫn không tự tìm được (*"Đọc lời giải xong vẫn không biết cách tự tìm lỗi ở bài tương tự."* — khảo sát S13, học viên L3B).
+- Bằng chứng — số chính + kết luận (chi tiết: `evidence/summary.md`): phỏng vấn 3 học viên + 1 lab coach và khảo sát 20 học viên (11 L3A, 9 L3B). **14/19** người đã gặp tình huống nói tốn công nhất ở **tìm chỗ sai logic** (L3A 7/10); trong 8 người dùng AI / xem lời giải, **0/8** tự giải thích được đầy đủ vì sao code cũ sai. Về thời gian, khảo sát có **6/10** học viên L3A tự báo mất trên 30 phút (L3B 8/9); phỏng vấn có **2/3** học viên mất ≥30 phút (P1 L3A, P2 L3B; P3 20 phút), nên vế thời gian của ngưỡng trong `evidence/hypothesis.md` **đạt**; vế "lấy lời giải mà vẫn không giải thích được" chưa có ở phỏng vấn (chỉ có từ khảo sát). Kết luận: giả thuyết **đúng một phần** — pain có thật ở khâu tìm lỗi logic, tốn thời gian và ở việc hiểu vì sao sai; mẫu nhỏ, số tự báo.
 
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
@@ -184,7 +184,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
-| 27/11 (Văn) | Thêm khảo sát 20 học viên (11 L3A, 9 L3B; nhóm Zalo lớp, 18:00–19:00 27/11): `evidence/survey/results.csv`, `questions.md`, `count_survey.py`; cập nhật `evidence/summary.md` (số chính, 5 trích dẫn mới, kết luận) | Bổ sung nguồn thứ hai cho bằng chứng pain: 14/19 nói tốn công nhất ở tìm lỗi logic; 0/8 người dùng AI / lời giải tự giải thích được đầy đủ. Vế thời gian ≥30 phút vẫn chưa đạt ở L3A (2/10). Không đổi lát cắt, không đổi chuẩn "đạt" |
+| 27/11 (Văn) | Thêm khảo sát 20 học viên (11 L3A, 9 L3B; nhóm Zalo lớp, 18:00–19:00 27/11): `evidence/survey/results.csv`, `questions.md`, `count_survey.py`; cập nhật `evidence/summary.md` (số chính, 5 trích dẫn mới, kết luận). | Bổ sung nguồn thứ hai cho bằng chứng pain: 14/19 nói tốn công nhất ở tìm lỗi logic; 0/8 người dùng AI / lời giải tự giải thích được đầy đủ; 14/19 tự báo lần gần nhất mất trên 30 phút (L3A 6/10, L3B 8/9). Phỏng vấn: 2/3 học viên mất ≥30 phút (P1=30, P2=30, P3=20 phút). Không đổi lát cắt, không đổi chuẩn "đạt" |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

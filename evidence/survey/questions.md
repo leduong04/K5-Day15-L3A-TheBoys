@@ -20,7 +20,7 @@
 | 2 | Lần gần nhất gặp lỗi | `lan_gan_nhat` | Chọn một · Tuần này / Tuần trước |
 | 3 | Số lần trong 1 tuần qua | `so_lan_1_tuan` | Số |
 | 4 | Đã làm gì (chọn nhiều) | `da_lam_gi` | Chọn nhiều · Tự đọc lại code / In giá trị trung gian (print) / Chạy tay với input nhỏ / Dán code vào ChatGPT / AI khác / Hỏi bạn / Xem lời giải có sẵn / Bỏ qua / Chưa gặp trường hợp này |
-| 5 | Thời gian xử lý | `thoi_gian` | Chọn một · Dưới 5 phút / 5–15 phút / 15–30 phút / Trên 30 phút |
+| 5 | Thời gian xử lý | `thoi_gian` | Chọn một · Dưới 5 phút / 5–15 phút / Trên 30 phút 
 | 6 | Kết quả | `ket_qua` | Chọn một · Xong / Xong một phần / Bỏ |
 | 7 | Khó khăn mất thời gian nhất | `kho_nhat` | Chọn một + Other · Tìm chỗ sai trong logic / Hiểu đề / yêu cầu / Lỗi cú pháp, cài đặt, chạy file |
 | 8 | Tự giải thích được vì sao code cũ sai? | `tu_giai_thich` | Chọn một · Có, giải thích được / Chỉ hiểu một phần / Không / Không dùng lời giải |

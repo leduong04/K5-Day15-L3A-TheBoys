@@ -184,7 +184,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
-|  |  |  |
+| 27/11 (Văn) | Thêm khảo sát 20 học viên (11 L3A, 9 L3B; nhóm Zalo lớp, 18:00–19:00 27/11): `evidence/survey/results.csv`, `questions.md`, `count_survey.py`; cập nhật `evidence/summary.md` (số chính, 5 trích dẫn mới, kết luận) | Bổ sung nguồn thứ hai cho bằng chứng pain: 14/19 nói tốn công nhất ở tìm lỗi logic; 0/8 người dùng AI / lời giải tự giải thích được đầy đủ. Vế thời gian ≥30 phút vẫn chưa đạt ở L3A (2/10). Không đổi lát cắt, không đổi chuẩn "đạt" |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

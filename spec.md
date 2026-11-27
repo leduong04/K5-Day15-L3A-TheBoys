@@ -4,7 +4,7 @@
 > Đầu mỗi mục ghi bước guide (`02-guide.md` trong repo đề) chỉ cách điền. Mỗi mục ngắn, có số và nguồn; chi tiết để ở file được trỏ tới. Xoá dòng hướng dẫn trong ngoặc vuông khi điền xong.
 
 Track: [x] A · [ ] B · [ ] C · [ ] D · [ ] E — bài toán: trợ lý gợi ý theo phương pháp Socratic giúp học viên tự tìm lỗi logic trong Python Mini Lab
-Data BTC cấp đã dùng (nếu có — không commit nguyên file): __
+Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data/preclass` (ngoài repo nhóm), dùng `answers.csv` và từ điển loại/cột để đếm tín hiệu hoạt động thực hành; chỉ lưu số tổng hợp tại `evidence/data-mining.md`, giới hạn đã ghi ở `data/DATA_CARD.md`.
 
 ## §0. Hiện tại việc này diễn ra thế nào *(guide 1.1)*
 - Luồng hiện tại của việc này, trong khoá hoặc trên app thật (3–5 bước; ảnh chụp từ tài khoản của mình, đã che thông tin):

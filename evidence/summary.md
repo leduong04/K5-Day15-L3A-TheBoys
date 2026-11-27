@@ -45,4 +45,7 @@ Giả thuyết ở `evidence/hypothesis.md`: **đúng / sai / phải đổi** �
 
 | Vai | Giờ hẹn | Đã xong? |
 |---|---|---|
-| | | |
+| P1 · Học viên L3A | 18:00 27/11 | ✅ |
+| P2 · Học viên L3B | 18:15 27/11 | ✅ |
+| P3 · Học viên L3A | 18:30 27/11 | ✅ |
+| P4 · Lab coach | 18:45 27/11 | ✅ |

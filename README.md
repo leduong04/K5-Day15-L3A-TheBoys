@@ -9,13 +9,24 @@ Học viên AI20K khi làm Python Mini Lab thường gặp khó khăn trong vi�
 
 ## 2. Lát cắt sản phẩm dự kiến
 
-Một học viên gửi đề bài Python Mini Lab, đoạn code và kết quả test sai; Socratic Debugger phân tích lỗi logic và đưa ra từng câu hỏi gợi mở để học viên tự tìm ra nguyên nhân, thay vì cung cấp lời giải hoàn chỉnh.
+Một học viên gửi đề bài Python Mini Lab, đoạn code và kết quả test sai; Socratic Debugger chọn chỗ có khả năng sai logic và trả về **một câu hỏi gợi mở theo cấp độ** để học viên tự tìm ra nguyên nhân, thay vì cung cấp lời giải hoàn chỉnh. Học viên vẫn chưa ra thì xin gợi ý ở cấp tiếp theo.
+
+Đầu vào theo định dạng có nhãn:
+
+```
+[DE]      đề bài                       (bắt buộc)
+[CODE]    code đang chạy ra sai         (bắt buộc)
+[TEST]    input, kết quả, mong đợi     (bắt buộc)
+[MUC]     cấp gợi ý 1–4                (tuỳ chọn, mặc định 1)
+[DA_THU]  học viên đã thử gì           (tuỳ chọn)
+```
 
 ## 3. Nguyên tắc sản phẩm
 
 - Chỉ hỗ trợ Python Mini Lab trong phiên bản MVP.
 - Tập trung vào lỗi logic khiến chương trình cho kết quả sai.
-- Hướng dẫn theo từng cấp độ: quan sát → định hướng → gợi ý khái niệm → ví dụ tương tự.
+- Hướng dẫn theo từng cấp độ: quan sát → định hướng → gợi ý khái niệm → ví dụ tương tự. Mỗi lượt trả đúng một câu hỏi ở một cấp.
+- Cấp "ví dụ tương tự" phải là bài khác, tên biến khác, không có dòng code nào dán thẳng vào bài gốc được.
 - Không cung cấp lời giải hoàn chỉnh hoặc tự động sửa code.
 - Nếu thiếu đề bài hoặc kết quả test, yêu cầu học viên bổ sung thông tin.
 - Học viên luôn là người quyết định và thực hiện việc sửa code.

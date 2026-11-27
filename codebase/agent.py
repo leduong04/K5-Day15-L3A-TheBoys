@@ -47,7 +47,7 @@ TRẢ VỀ CHỈ MỘT JSON, không thêm chữ nào khác:
 HOI_LAI = {
     "DE": "Bạn dán giúp mình đề bài (hàm cần làm gì) dưới nhãn [DE] được không?",
     "CODE": "Bạn dán giúp mình đoạn code đang chạy ra kết quả sai dưới nhãn [CODE] nhé?",
-    "TEST": "Bạn chạy với input nào, ra kết quả gì và mong đợi kết quả gì? Ghi dưới nhãn [TEST] giúp mình nhé?",
+    "TEST": "Dưới nhãn [TEST], bạn ghi giúp mình: chạy với input nào, ra kết quả gì và mong đợi kết quả gì?",
 }
 
 DU_PHONG = {

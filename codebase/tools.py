@@ -101,7 +101,7 @@ def check_no_solution(answer: str, student_code: str, muc: int = 1) -> dict:
     3. có đoạn trong `...` dùng tên biến/hàm của bài mà KHÔNG phải trích nguyên văn code học viên
        (dấu hiệu code đã sửa, vd `range(1, n+1)`);
     4. cấp 4: đoạn `...` dùng lại tên biến/hàm của bài gốc (ví dụ tương tự phải là bài khác);
-    5. sai định dạng: rỗng, nhiều hơn 1 dấu "?", hoặc dài hơn MAX_TU từ.
+    5. sai định dạng: rỗng, không có đúng 1 dấu "?", hoặc dài hơn MAX_TU từ.
     """
     a = (answer or "").strip()
     if not a:
@@ -124,8 +124,8 @@ def check_no_solution(answer: str, student_code: str, muc: int = 1) -> dict:
         if _gon(doan) not in code_gon:
             return {"ok": False, "ly_do": "đoạn `%s` không phải trích từ code học viên (có thể là code sửa)" % doan}
 
-    if a.count("?") > 1:
-        return {"ok": False, "ly_do": "nhiều hơn một câu hỏi"}
+    if a.count("?") != 1:
+        return {"ok": False, "ly_do": "không có đúng một câu hỏi"}
     if len(a.split()) > MAX_TU:
         return {"ok": False, "ly_do": "dài hơn %d từ" % MAX_TU}
     return {"ok": True, "ly_do": ""}

@@ -14,6 +14,16 @@
 | Nhãn | Dữ liệu hành vi khoá học, mã học viên đã giả danh hoá theo từ điển BTC. |
 | Giới hạn | Bài trong gói là nội dung AI/agent, không đại diện trực tiếp cho Python Mini Lab; đúng/sai và số lần trả lời không giải thích nguyên nhân, không chứng minh lỗi logic hoặc pain. Chỉ dùng như tín hiệu thăm dò, cần kiểm lại qua phỏng vấn đúng người dùng. |
 
-## Dataset 2 · Căn cứ Mini Lab cho prototype
+## Dataset 2 · Căn cứ Mini Lab cho prototype (`data/labs.json`)
 
-Chưa có bộ dữ liệu runtime được chốt ở CP2. Dự kiến nhóm tự viết 3–5 bài mẫu, gắn nhãn `synthetic`, kiểm tay trước khi dùng; đây không phải bằng chứng pain. Hiếu phụ trách tạo và cập nhật data này trong chặng CP2/CP3 theo phân công ở `spec.md` §10.
+| | |
+|---|---|
+| Dùng để làm gì | Nguồn cho công cụ `lookup_lab` (`codebase/tools.py`): đưa đề, test mẫu và lỗi hay gặp cho model làm căn cứ khi chọn chỗ nghi sai |
+| Từ đâu | Nhóm tự viết theo kiểu bài Python cơ bản; **không** chép nguyên văn đề của khoá |
+| Xử lý những bước gì | Mỗi bài gồm mã (`LAB-01`…), tên hàm, đề, 3 test mẫu, từ khoá để tìm, 2 lỗi hay gặp có mã (`LAB-01-E1`…). Lỗi hay gặp chỉ **mô tả** hiện tượng, **không** có code đã sửa, để model không có lời giải mà chép |
+| Số dòng / số đoạn | 5 bài · 10 lỗi hay gặp (off-by-one ở `range`, điều kiện chẵn/lẻ, biến đếm khởi tạo trong vòng lặp, phân biệt hoa thường, giá trị khởi tạo sai, `return` trong vòng lặp, chia lấy nguyên, sai mẫu số, nhầm `and`/`or`, thiếu điều kiện chia hết cho 400) |
+| Phiên bản / ngày lấy | v1 · 27/11/2026 |
+| Nhãn | `synthetic` |
+| Giới hạn | Chỉ 5 dạng bài ngắn một hàm; chưa phủ hết Mini Lab thật; lệch về lỗi vòng lặp và điều kiện. Không tìm thấy bài thì `lookup_lab` trả rỗng và trợ lý chỉ dựa vào đề học viên dán. Sẽ bổ sung bài từ code lỗi thật (đã ẩn danh) khi có từ phỏng vấn |
+
+**Cách sinh:** viết tay với hỗ trợ của AI (Claude Code) theo danh sách lỗi logic hay gặp ở `spec.md` §4; không dùng seed. **Người kiểm:** Hiếu — kiểm tay __/5 bài (đề rõ, test mẫu đúng, mô tả lỗi không lộ cách sửa). Data tự dựng **không phải bằng chứng pain**.

@@ -1,0 +1,57 @@
+[
+  {
+    "code": "LAB-01",
+    "ten_ham": "tong_chan",
+    "de": "Viết hàm tong_chan(n) trả về tổng các số chẵn từ 1 đến n (tính cả n).",
+    "test_mau": ["tong_chan(10) == 30", "tong_chan(1) == 0", "tong_chan(2) == 2"],
+    "tu_khoa": ["tổng", "số chẵn", "chẵn", "range", "từ 1 đến n"],
+    "loi_hay_gap": [
+      {"code": "LAB-01-E1", "loai": "off_by_one_range", "mo_ta": "Vòng lặp dừng trước n nên bỏ sót giá trị cuối khi n chẵn."},
+      {"code": "LAB-01-E2", "loai": "dieu_kien_chan_le", "mo_ta": "Điều kiện kiểm tra chẵn/lẻ bị đảo nên cộng nhầm các số lẻ."}
+    ]
+  },
+  {
+    "code": "LAB-02",
+    "ten_ham": "dem_nguyen_am",
+    "de": "Viết hàm dem_nguyen_am(s) đếm số nguyên âm (a, e, i, o, u, không phân biệt hoa thường) trong chuỗi s.",
+    "test_mau": ["dem_nguyen_am('Hello') == 2", "dem_nguyen_am('AEIOU') == 5", "dem_nguyen_am('xyz') == 0"],
+    "tu_khoa": ["đếm", "nguyên âm", "chuỗi", "hoa thường"],
+    "loi_hay_gap": [
+      {"code": "LAB-02-E1", "loai": "khoi_tao_trong_vong_lap", "mo_ta": "Biến đếm được gán lại về 0 ở mỗi vòng lặp nên kết quả chỉ phản ánh ký tự cuối."},
+      {"code": "LAB-02-E2", "loai": "phan_biet_hoa_thuong", "mo_ta": "So sánh với tập nguyên âm chữ thường nhưng không đổi ký tự về chữ thường trước."}
+    ]
+  },
+  {
+    "code": "LAB-03",
+    "ten_ham": "tim_max",
+    "de": "Viết hàm tim_max(ds) trả về phần tử lớn nhất của danh sách số ds (ds không rỗng, có thể có số âm). Không dùng hàm max có sẵn.",
+    "test_mau": ["tim_max([3, 7, 2]) == 7", "tim_max([-5, -2, -9]) == -2", "tim_max([4]) == 4"],
+    "tu_khoa": ["lớn nhất", "max", "danh sách", "phần tử"],
+    "loi_hay_gap": [
+      {"code": "LAB-03-E1", "loai": "gia_tri_khoi_tao_sai", "mo_ta": "Giá trị lớn nhất khởi tạo bằng 0 nên sai khi danh sách toàn số âm."},
+      {"code": "LAB-03-E2", "loai": "return_trong_vong_lap", "mo_ta": "Lệnh return nằm trong vòng lặp nên hàm kết thúc sau phần tử đầu tiên."}
+    ]
+  },
+  {
+    "code": "LAB-04",
+    "ten_ham": "trung_binh",
+    "de": "Viết hàm trung_binh(ds) trả về trung bình cộng (số thực) của danh sách số ds không rỗng.",
+    "test_mau": ["trung_binh([1, 2]) == 1.5", "trung_binh([2, 4, 6]) == 4.0", "trung_binh([5]) == 5.0"],
+    "tu_khoa": ["trung bình", "trung bình cộng", "số thực", "chia"],
+    "loi_hay_gap": [
+      {"code": "LAB-04-E1", "loai": "chia_lay_nguyen", "mo_ta": "Dùng phép chia lấy phần nguyên nên mất phần thập phân."},
+      {"code": "LAB-04-E2", "loai": "sai_mau_so", "mo_ta": "Chia cho một số cố định hoặc chỉ số cuối thay vì số phần tử của danh sách."}
+    ]
+  },
+  {
+    "code": "LAB-05",
+    "ten_ham": "la_nam_nhuan",
+    "de": "Viết hàm la_nam_nhuan(y) trả về True nếu y là năm nhuận: chia hết cho 4 nhưng không chia hết cho 100, hoặc chia hết cho 400.",
+    "test_mau": ["la_nam_nhuan(2024) == True", "la_nam_nhuan(1900) == False", "la_nam_nhuan(2000) == True"],
+    "tu_khoa": ["năm nhuận", "chia hết", "400", "100"],
+    "loi_hay_gap": [
+      {"code": "LAB-05-E1", "loai": "nham_and_or", "mo_ta": "Kết hợp các điều kiện bằng and/or sai thứ tự nên năm chia hết cho 100 bị tính là nhuận."},
+      {"code": "LAB-05-E2", "loai": "thieu_dieu_kien_400", "mo_ta": "Bỏ sót trường hợp chia hết cho 400 nên năm 2000 bị tính là không nhuận."}
+    ]
+  }
+]

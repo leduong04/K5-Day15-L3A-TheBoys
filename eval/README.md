@@ -5,12 +5,12 @@
 
 ## 1. Dataset → xử lý
 
-Dùng 2 nguồn chính (chi tiết tại `data/DATA_CARD.md`): (1) dữ liệu hành vi pre-class do BTC cấp (ẩn danh, lọc tín hiệu khó khăn, không commit file gốc); (2) bộ câu thử `eval/benchmark.csv` chuẩn hoá theo định dạng nhãn `[DE]`, `[CODE]`, `[TEST]` (bắt buộc) và `[MUC]`, `[DA_THU]` (tuỳ chọn) như `spec.md` §4, kết hợp lỗi Python Mini Lab thật từ phỏng vấn học viên/data BTC và các tình huống biên/tấn công.
+Dùng 2 nguồn với mục đích khác nhau (chi tiết tại `data/DATA_CARD.md`): (1) dữ liệu pre-class BTC để mô tả sơ bộ hành vi học; dữ liệu này không ghi trực tiếp lỗi Python Mini Lab và chưa xác nhận pain; (2) bộ câu thử `eval/benchmark.csv`, hiện gồm 12 tình huống nhóm tự viết theo nhãn `[DE]`, `[CODE]`, `[TEST]`, `[MUC]`. Chưa có câu lấy từ phỏng vấn hoặc data thật.
 
 ## 2. Bộ câu thử dựng ra sao
 
-- `eval/benchmark.csv`: hiện 12 câu chuẩn định dạng `[DE] [CODE] [TEST] [MUC]` (thuong 4 · kho 5 · tu_choi 3, trong đó 2 câu tấn công `B11`, `B12`) — *đang chờ ghép câu thật từ Văn/Dương để đạt ≥1/3 nguồn thật trước 19:00*
-- Nguồn (`python run.py check` in sẵn): nguoi_dung __ · data_that __ · tu_viet 12 · sinh_seed 0 → từ người dùng / data thật __/__ (cần ≥1/3 trước CP2)
+- `eval/benchmark.csv`: hiện 12 câu chuẩn định dạng `[DE] [CODE] [TEST] [MUC]` (thuong 4 · kho 5 · tu_choi 3, trong đó 2 câu tấn công `B11`, `B12`).
+- Nguồn (`python run.py check`): nguoi_dung 0 · data_that 0 · tu_viet 12 · sinh_seed 0 → từ người dùng / data thật 0/12; cần ít nhất 4/12 để đạt ≥1/3.
 - Độ phủ — lưới input 4 chiều (guide 2.4 bước 5):
   1. **Cấp gợi ý (`[MUC]`):** đủ cả 4 cấp (`B01` Cấp 1 · `B02` Cấp 2 + `[DA_THU]` · `B03` Cấp 3 · `B04` Cấp 4).
   2. **Loại lỗi logic Python:** sai biên `range`, reset biến trong vòng lặp, `return` sớm, khởi tạo mốc `max = 0`, khởi tạo tích `kq = 0`, sai điều kiện biên `>=` vs `>`.

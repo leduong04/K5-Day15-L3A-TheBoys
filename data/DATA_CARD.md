@@ -14,18 +14,28 @@
 | Nhãn | Dữ liệu hành vi khoá học, mã học viên đã giả danh hoá theo từ điển BTC. |
 | Giới hạn | Bài trong gói là nội dung AI/agent, không đại diện trực tiếp cho Python Mini Lab; đúng/sai và số lần trả lời không giải thích nguyên nhân, không chứng minh lỗi logic hoặc pain. Chỉ dùng như tín hiệu thăm dò, cần kiểm lại qua phỏng vấn đúng người dùng. |
 
-## Dataset 2 · Căn cứ Mini Lab cho prototype
+## Dataset 2 · Căn cứ Mini Lab cho prototype (`data/labs.json`)
 
-Chưa có bộ dữ liệu runtime được chốt ở CP2. Dự kiến nhóm tự viết 3–5 bài mẫu, gắn nhãn `synthetic`, kiểm tay trước khi dùng; đây không phải bằng chứng pain. Hiếu phụ trách tạo và cập nhật data này trong chặng CP2/CP3 theo phân công ở `spec.md` §10.
+| | |
+|---|---|
+| Dùng để làm gì | Nguồn cho công cụ `lookup_lab` (`codebase/tools.py`): đưa đề, test mẫu và lỗi hay gặp cho model làm căn cứ khi chọn chỗ nghi sai |
+| Từ đâu | Nhóm tự viết theo kiểu bài Python cơ bản; **không** chép nguyên văn đề của khoá |
+| Xử lý những bước gì | Mỗi bài gồm mã (`LAB-01`…), tên hàm, đề, 3 test mẫu, từ khoá để tìm, 2 lỗi hay gặp có mã (`LAB-01-E1`…). Lỗi hay gặp chỉ **mô tả** hiện tượng, **không** có code đã sửa, để model không có lời giải mà chép |
+| Số dòng / số đoạn | 5 bài · 10 lỗi hay gặp (off-by-one ở `range`, điều kiện chẵn/lẻ, biến đếm khởi tạo trong vòng lặp, phân biệt hoa thường, giá trị khởi tạo sai, `return` trong vòng lặp, chia lấy nguyên, sai mẫu số, nhầm `and`/`or`, thiếu điều kiện chia hết cho 400) |
+| Phiên bản / ngày lấy | v1 · 27/11/2026 |
+| Nhãn | `synthetic` |
+| Giới hạn | Chỉ 5 dạng bài ngắn một hàm; chưa phủ hết Mini Lab thật; lệch về lỗi vòng lặp và điều kiện. Không tìm thấy bài thì `lookup_lab` trả rỗng và trợ lý chỉ dựa vào đề học viên dán. Sẽ bổ sung bài từ code lỗi thật (đã ẩn danh) khi có từ phỏng vấn |
+
+**Cách sinh:** viết tay với hỗ trợ của AI (Claude Code) theo danh sách lỗi logic hay gặp ở `spec.md` §4; không dùng seed. **Người kiểm:** Hiếu — kiểm tay __/5 bài (đề rõ, test mẫu đúng, mô tả lỗi không lộ cách sửa). Data tự dựng **không phải bằng chứng pain**.
 
 ## Dataset 3 · Bộ câu thử Python Mini Lab (`eval/benchmark.csv`)
 
 | | |
 |---|---|
 | Dùng để làm gì | Đánh giá chất lượng bản chạy thử Socratic Debugger qua `python run.py eval` (`thuong`, `kho`, `tu_choi`). |
-| Từ đâu | Kết hợp: (1) nhóm tự viết chuẩn định dạng `[DE] [CODE] [TEST] [MUC]` (`tu_viet`, đã dựng 12 câu gồm 4 `thuong` đủ 4 cấp + 5 `kho` + 3 `tu_choi` trong đó có 2 câu tấn công); (2) lỗi Python Mini Lab thực tế thu thập từ phỏng vấn học viên L3A (`nguoi_dung`, đang chờ ghép bổ sung từ Văn trước CP2 và mở rộng lên 20–30 câu trước CP3). |
-| Xử lý những bước gì | Chuẩn hoá đầu vào theo đúng nhãn `[DE]`, `[CODE]`, `[TEST]` (bắt buộc) và `[MUC]`, `[DA_THU]` (tuỳ chọn) ở `spec.md` §4; xoá thông tin cá nhân học viên; gắn nhãn `type`, `source` và `pass_criterion` kiểm chứng được. |
-| Số dòng / số đoạn | Hiện có 12 câu khung `tu_viet` (mục tiêu CP2: ≥10 câu và ≥1/3 nguồn thật; CP3: 20–30 câu). |
-| Phiên bản / ngày lấy | 27/11/2026 (bản đầu trước CP2). |
-| Nhãn | Kết hợp thật (`nguoi_dung`) và tự biên soạn (`tu_viet`). |
-| Giới hạn | Phần `tu_viet` tập trung kiểm tra 4 cấp gợi ý, hành vi biên, thiếu thông tin và chống ép giải hộ — **không dùng làm bằng chứng pain**. Cần bổ sung ≥1/3 số câu từ phỏng vấn người dùng thật trước khi chốt CP2. |
+| Từ đâu | 12 câu do nhóm tự viết theo định dạng `[DE] [CODE] [TEST] [MUC]`; cần bổ sung lỗi thực tế từ người dùng hoặc data thật để đạt tỷ lệ nguồn yêu cầu. |
+| Xử lý những bước gì | Chuẩn hoá đầu vào theo đúng nhãn `[DE]`, `[CODE]`, `[TEST]` (bắt buộc) và `[MUC]`, `[DA_THU]` (tuỳ chọn) ở `spec.md` §4; gắn nhãn `type`, `source` và `pass_criterion` kiểm chứng được. |
+| Số dòng / số đoạn | 12 câu: 4 `thuong`, 5 `kho`, 3 `tu_choi` (2 câu tấn công). Hiện cả 12 câu đều mang nguồn `tu_viet`. |
+| Phiên bản / ngày lấy | 27/11/2026. |
+| Nhãn | `tu_viet`. |
+| Giới hạn | Bộ câu hiện bao phủ 4 cấp gợi ý, một số tình huống thiếu thông tin và tấn công; chưa có câu từ phỏng vấn/data thật, nên chưa đạt yêu cầu nguồn ≥1/3 ở CP2. Câu tự viết **không phải bằng chứng pain**. |

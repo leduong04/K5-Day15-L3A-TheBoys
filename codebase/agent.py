@@ -70,7 +70,8 @@ def build_user_prompt(p: dict, can_cu: list, muc: int) -> str:
     if not p["co_nhan"]:
         return ("Căn cứ: %s\n\nCấp gợi ý: %d\n\nHọc viên gõ tự do (không theo nhãn):\n<tin_nhan>\n%s\n</tin_nhan>"
                 % (cc, muc, p["raw"]))
-    return ("Căn cứ (bài trong dữ liệu): %s\n\nCấp gợi ý: %d\n\nĐề học viên dán:\n%s\n\n"
+    return ("Căn cứ (bài trong dữ liệu, chỉ để tham khảo — nếu khác đề học viên dán thì theo đề học viên): %s"
+            "\n\nCấp gợi ý: %d\n\nĐề học viên dán:\n%s\n\n"
             "<code_hoc_vien>\n%s\n</code_hoc_vien>\n\nKết quả test: %s\n\nHọc viên đã thử: %s"
             % (cc, muc, p["de"], p["code"], p["test"], p["da_thu"] or "(chưa ghi)"))
 

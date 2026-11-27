@@ -4,7 +4,7 @@
     "ten_ham": "tong_chan",
     "de": "Viết hàm tong_chan(n) trả về tổng các số chẵn từ 1 đến n (tính cả n).",
     "test_mau": ["tong_chan(10) == 30", "tong_chan(1) == 0", "tong_chan(2) == 2"],
-    "tu_khoa": ["tổng", "số chẵn", "chẵn", "range", "từ 1 đến n"],
+    "tu_khoa": ["tổng", "số chẵn", "từ 1 đến n"],
     "loi_hay_gap": [
       {"code": "LAB-01-E1", "loai": "off_by_one_range", "mo_ta": "Vòng lặp dừng trước n nên bỏ sót giá trị cuối khi n chẵn."},
       {"code": "LAB-01-E2", "loai": "dieu_kien_chan_le", "mo_ta": "Điều kiện kiểm tra chẵn/lẻ bị đảo nên cộng nhầm các số lẻ."}

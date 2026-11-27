@@ -18,6 +18,7 @@ NHAN = ["DE", "CODE", "TEST", "MUC", "DA_THU"]   # nhãn đầu vào đã chốt
 BAT_BUOC = ["DE", "CODE", "TEST"]
 MUC_TOI_DA = 4
 MAX_TU = 60                                       # câu hỏi tối đa ~60 từ
+NGUONG_TU_KHOA = 3                                # lookup_lab: không trùng tên hàm thì cần ≥3 từ khoá
 
 # Tên có sẵn của Python (range, len, print, for, if…) — trùng tên này không tính là "dùng lại tên của bài"
 TEN_CO_SAN = set(keyword.kwlist) | set(dir(builtins))
@@ -64,7 +65,9 @@ def lookup_lab(de: str, code: str = "") -> list:
     Output: tối đa 1 bài khớp trong data/labs.json {"code","de","test_mau","loi_hay_gap"}, [] nếu không thấy ·
     Không tác động ra ngoài.
 
-    Khớp theo: tên hàm của bài xuất hiện trong đề/code (mạnh nhất), rồi số từ khoá trùng.
+    Khớp khi: tên hàm của bài xuất hiện trong đề/code, HOẶC trùng ≥ NGUONG_TU_KHOA từ khoá.
+    Ngưỡng cao để tránh khớp nhầm bài khác (vd "tổng số lẻ" ≠ LAB-01 "tổng số chẵn"):
+    khớp nhầm còn tệ hơn không khớp, vì model sẽ dựa vào đề và test của bài khác.
     """
     noi_dung = (de + "\n" + code).lower()
     tot_nhat, diem_cao = None, 0
@@ -75,7 +78,7 @@ def lookup_lab(de: str, code: str = "") -> list:
         diem += sum(1 for k in lab["tu_khoa"] if k.lower() in noi_dung)
         if diem > diem_cao:
             tot_nhat, diem_cao = lab, diem
-    if not tot_nhat or diem_cao < 2:          # khớp quá yếu thì coi như không có căn cứ
+    if not tot_nhat or diem_cao < NGUONG_TU_KHOA:   # khớp yếu thì coi như không có căn cứ
         return []
     return [{k: tot_nhat[k] for k in ("code", "de", "test_mau", "loi_hay_gap")}]
 

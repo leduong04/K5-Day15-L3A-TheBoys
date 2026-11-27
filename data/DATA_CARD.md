@@ -26,7 +26,7 @@
 | Nhãn | `synthetic` |
 | Giới hạn | Chỉ 5 dạng bài ngắn một hàm; chưa phủ hết Mini Lab thật; lệch về lỗi vòng lặp và điều kiện. Không tìm thấy bài thì `lookup_lab` trả rỗng và trợ lý chỉ dựa vào đề học viên dán. Sẽ bổ sung bài từ code lỗi thật (đã ẩn danh) khi có từ phỏng vấn |
 
-**Cách sinh:** viết tay với hỗ trợ của AI (Claude Code) theo danh sách lỗi logic hay gặp ở `spec.md` §4; không dùng seed. **Người kiểm:** Hiếu — kiểm tay __/5 bài (đề rõ, test mẫu đúng, mô tả lỗi không lộ cách sửa). Data tự dựng **không phải bằng chứng pain**.
+**Cách sinh:** viết tay với hỗ trợ của AI (Claude Code) theo danh sách lỗi logic hay gặp ở `spec.md` §4; không dùng seed. **Người kiểm:** Hiếu (có AI hỗ trợ) — **5/5 bài** đạt: đề rõ, có tên hàm; **15/15 test mẫu đúng** (đối chiếu bằng lời giải tham chiếu chạy riêng, không đưa vào repo); **10/10 mô tả lỗi** không chứa code hay cách sửa. Khi kiểm phát hiện từ khoá `range` ở LAB-01 làm `lookup_lab` khớp nhầm bài khác → đã bỏ và nâng ngưỡng khớp (trùng tên hàm hoặc ≥3 từ khoá). Data tự dựng **không phải bằng chứng pain**.
 
 ## Dataset 3 · Bộ câu thử Python Mini Lab (`eval/benchmark.csv`)
 

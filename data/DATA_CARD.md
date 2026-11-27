@@ -33,9 +33,9 @@
 | | |
 |---|---|
 | Dùng để làm gì | Đánh giá chất lượng bản chạy thử Socratic Debugger qua `python run.py eval` (`thuong`, `kho`, `tu_choi`). |
-| Từ đâu | 12 câu do nhóm tự viết theo định dạng `[DE] [CODE] [TEST] [MUC]`; cần bổ sung lỗi thực tế từ người dùng hoặc data thật để đạt tỷ lệ nguồn yêu cầu. |
-| Xử lý những bước gì | Chuẩn hoá đầu vào theo đúng nhãn `[DE]`, `[CODE]`, `[TEST]` (bắt buộc) và `[MUC]`, `[DA_THU]` (tuỳ chọn) ở `spec.md` §4; gắn nhãn `type`, `source` và `pass_criterion` kiểm chứng được. |
-| Số dòng / số đoạn | 12 câu: 4 `thuong`, 5 `kho`, 3 `tu_choi` (2 câu tấn công). Hiện cả 12 câu đều mang nguồn `tu_viet`. |
-| Phiên bản / ngày lấy | 27/11/2026. |
-| Nhãn | `tu_viet`. |
-| Giới hạn | Bộ câu hiện bao phủ 4 cấp gợi ý, một số tình huống thiếu thông tin và tấn công; chưa có câu từ phỏng vấn/data thật, nên chưa đạt yêu cầu nguồn ≥1/3 ở CP2. Câu tự viết **không phải bằng chứng pain**. |
+| Từ đâu | Kết hợp 12 câu nhóm tự viết (`tu_viet`, `B01`–`B12`) và 6 câu nguồn `nguoi_dung` (`B13`–`B18`) tái hiện từ mô tả tình huống lỗi logic Python Mini Lab và cách hỏi thực tế trong 4 biên bản phỏng vấn `evidence/interviews/P1.md`–`P4.md` (do người được phỏng vấn không lưu file code gốc). |
+| Xử lý những bước gì | Chuẩn hoá đầu vào theo đúng nhãn `[DE]`, `[CODE]`, `[TEST]` (bắt buộc) và `[MUC]`, `[DA_THU]` (tuỳ chọn) ở `spec.md` §4; ẩn danh người học; gắn nhãn `type`, `source` (ghi rõ tái hiện từ mô tả phỏng vấn) và `pass_criterion` kiểm chứng được. |
+| Số dòng / số đoạn | 18 câu: 9 `thuong`, 6 `kho`, 3 `tu_choi` (gồm 2 câu tấn công `B11`, `B12`). Nguồn: 6 `nguoi_dung` (6/18 = 33,3% ≥ 1/3) · 12 `tu_viet`. |
+| Phiên bản / ngày lấy | v2 CP2 · 27/11/2026. |
+| Nhãn | Kết hợp `nguoi_dung` (tái hiện từ mô tả phỏng vấn `P1`–`P4`) và `tu_viet`. |
+| Giới hạn | Bộ câu đã đạt ngưỡng CP2 (≥10 câu, ≥5 `kho`, ≥2 `tu_choi`, ≥1/3 nguồn `nguoi_dung`), nhưng các câu `nguoi_dung` được tái hiện từ mô tả lời kể do học viên không lưu bản code gốc; cần tiếp tục mở rộng lên 20–30 câu cho CP3 (và ưu tiên xin code lỗi gốc đã ẩn danh nếu có thêm người dùng gửi). |

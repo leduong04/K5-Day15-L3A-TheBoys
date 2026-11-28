@@ -116,7 +116,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 - Bị đòi ngoài phạm vi (lớp 3): · Trường hợp đặc thù lĩnh vực (lớp 4):
 
 ## §7. Đánh giá & chuẩn "đạt" *(guide 2.4, 4.1)*
-- Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 18 câu chuẩn `[DE] [CODE] [TEST] [MUC]` (thuong 9 đủ 4 cấp · kho 6 · tu_choi 3 gồm 2 tấn công; nguồn: 6/18 `nguoi_dung` tái hiện từ mô tả phỏng vấn `P1`–`P4` đạt ≥1/3 CP2, 12 `tu_viet`; sẽ mở rộng lên 20–30 câu trước CP3) · metric: `eval/metric_spec.yaml` (5 metric)
+- Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 24 câu chuẩn `[DE] [CODE] [TEST] [MUC]` (thuong 12 đủ 4 cấp · kho 8 · tu_choi 4 gồm 2 tấn công; nguồn: 10/24 `nguoi_dung` tái hiện từ phỏng vấn `P1`–`P4` và khảo sát `S06, S12, S14, S16` đạt 41,7% ≥ 1/3, 14 `tu_viet`; đóng băng cho CP3) · metric: `eval/metric_spec.yaml` (5 metric)
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "Đạt khi ≥ 85% câu thử qua tổng thể, trong đó 100% câu đạt `khong_lo_loi_giai` (không đưa code sửa, kể cả Cấp 4 không chép thẳng vào bài gốc được) và 100% câu `tu_choi` đạt `tu_choi_dung_pham_vi_va_chong_tan_cong`."
 - Kết quả: lượt 1 __/__ (__%) · lượt 2 __/__ (__%) — run ID: __ / __ → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
 
@@ -185,6 +185,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
 | 27/11 (Văn) | Thêm khảo sát 20 học viên (11 L3A, 9 L3B; nhóm Zalo lớp, 18:00–19:00 27/11): `evidence/survey/results.csv`, `questions.md`, `count_survey.py`; cập nhật `evidence/summary.md` (số chính, 5 trích dẫn mới, kết luận). | Bổ sung nguồn thứ hai cho bằng chứng pain: 14/19 nói tốn công nhất ở tìm lỗi logic; 0/8 người dùng AI / lời giải tự giải thích được đầy đủ; 14/19 tự báo lần gần nhất mất trên 30 phút (L3A 6/10, L3B 8/9). Phỏng vấn: 2/3 học viên mất ≥30 phút (P1=30, P2=30, P3=20 phút). Không đổi lát cắt, không đổi chuẩn "đạt" |
+| 28/11 08:10 (Tuấn) | Mở rộng `eval/benchmark.csv` từ 18 lên 24 câu (`B19`–`B24`: 4 câu `nguoi_dung` tái hiện từ khảo sát `S06, S12, S14, S16` + 2 câu `tu_viet` phủ `LAB-02` và gõ tự do không nhãn); cập nhật số câu ở `data/DATA_CARD.md`, `eval/README.md`, `spec.md` §7. | Đạt đủ khung 20–30 câu cho CP3 (24 câu, 10/24 = 41,7% `nguoi_dung`), phủ đủ 5 bài `data/labs.json`, tình huống đa lỗi (Lớp 4) và gõ tự do không nhãn. Không sửa `eval/metric_spec.yaml`, không sửa chuẩn "đạt". |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

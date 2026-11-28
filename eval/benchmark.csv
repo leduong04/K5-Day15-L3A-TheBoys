@@ -181,3 +181,50 @@ def kiem_tra_hoc_bong(diem):
     if diem > 8.0:
         return True
     return False","Học viên chỉ dán đoạn hàm ngắn (như phản ánh ở P3), thiếu cả [DE] và [TEST]: yêu cầu học viên bổ sung đề bài cụ thể (ngưỡng 8.0 có tính không) và kết quả test bị sai (input nào, ra gì, mong đợi gì), không tự đoán lỗi và không sửa hộ code.","Có hỏi lại đề bài và kết quả test sai; không tự đoán đề và không đưa code sửa.",kho,"nguoi_dung: P3 (tai hien tu trich dan dan moi doan ham - thieu DE va TEST)"
+B19,"[DE]
+Viết hàm la_nam_nhuan(y) trả về True nếu y là năm nhuận: chia hết cho 4 nhưng không chia hết cho 100, hoặc chia hết cho 400.
+[CODE]
+def la_nam_nhuan(y):
+    if y % 4 == 0 and y % 100 != 0:
+        return True
+    return False
+[TEST]
+la_nam_nhuan(2000) ra False, mong đợi True
+[MUC] 1","Đặt đúng 1 câu hỏi Cấp 1 (Quan sát) giúp học viên đối chiếu trường hợp đặc biệt năm 2000 với các điều kiện trong đề bài; chưa chỉ thẳng dòng if và không đưa code sửa.","Đúng 1 câu hỏi Cấp 1 (đối chiếu kết quả False vs True với điều kiện năm 2000 trong đề); chưa chỉ dòng if; không có code sửa.",thuong,"nguoi_dung: S12 (tai hien tu khao sat - bo sot truong hop dac biet nhieu dieu kien)"
+B20,"[DE]
+Viết hàm tinh_tong_tien(gia_sp) trả về tổng tiền của danh sách giá sản phẩm gia_sp.
+[CODE]
+def tinh_tong_tien(gia_sp):
+    tong = 0
+    for g in gia_sp:
+        tong = g
+    return tong
+[TEST]
+tinh_tong_tien([10, 20, 30]) ra 30, mong đợi 60
+[MUC] 2","Đặt đúng 1 câu hỏi Cấp 2 (Định hướng) hướng học viên kiểm tra giá trị biến tong thay đổi thế nào sau mỗi lượt lặp (phát hiện biến bị ghi đè); không nói trực tiếp sửa thành += và không đưa code sửa.","Đúng 1 câu hỏi Cấp 2 chỉ vào biến tong trong vòng lặp; không nêu toán tử += thay thế và không có code sửa.",thuong,"nguoi_dung: S16 (tai hien tu khao sat - bien bi ghi de trong vong lap)"
+B21,"[DE]
+Viết hàm dem_nguyen_am(s) đếm số nguyên âm (a, e, i, o, u, không phân biệt hoa thường) trong chuỗi s.
+[CODE]
+def dem_nguyen_am(s):
+    dem = 0
+    for ch in s:
+        if ch in 'aeiou':
+            dem += 1
+    return dem
+[TEST]
+dem_nguyen_am('AEIOU') ra 0, mong đợi 5
+[MUC] 3","Đặt đúng 1 câu hỏi Cấp 3 (Gợi ý khái niệm) nhắc về cách Python so sánh phân biệt chữ hoa và chữ thường trong chuỗi; không nêu trực tiếp lời giải sửa code.","Đúng 1 câu hỏi Cấp 3 về khái niệm phân biệt hoa thường khi so sánh ký tự trong Python; không đưa code sửa.",thuong,"tu_viet: LAB-02 phan biet hoa thuong - cap 3"
+B22,"[DE]
+Viết hàm dem_gioi(ds) đếm số học sinh có điểm >= 8 trong danh sách ds.
+[CODE]
+def dem_gioi(ds):
+    for d in ds:
+        dem = 0
+        if d > 8:
+            dem += 1
+    return dem
+[TEST]
+dem_gioi([8, 9, 7, 10]) ra 1, mong đợi 3
+[MUC] 2","Code có 2 lỗi logic cùng lúc (reset dem = 0 trong vòng lặp và dùng d > 8 thay vì >= 8): chỉ đặt đúng 1 câu hỏi Cấp 2 tập trung vào 1 trong 2 vùng lỗi trước, không liệt kê cả hai lỗi hay sửa hộ code.","Đúng 1 câu hỏi Cấp 2 nhắm đúng 1 trong 2 lỗi (biến dem trong vòng lặp hoặc điều kiện d > 8); không đưa code sửa.",kho,"nguoi_dung: S06 (tai hien tu khao sat - 2 loi logic cung luc, lop 4)"
+B23,"Anh ơi em làm bài viết hàm trung_binh(ds) trả về trung bình cộng số thực của danh sách số, code là def trung_binh(ds): return sum(ds) // len(ds) mà em chạy trung_binh([1, 2]) ra 1 thay vì 1.5, sao kỳ vậy ạ?","Đầu vào gõ tự do không có nhãn [DE] [CODE] [TEST] nhưng có đủ 3 ý: trợ lý cố tự tách và đặt đúng 1 câu hỏi Cấp 1 (mặc định khi thiếu [MUC]) về phần chênh lệch giữa 1 và 1.5 (hoặc nếu không tách được thì hỏi lại phần thiếu), không sửa hộ code.","Đặt đúng 1 câu hỏi gợi mở (hoặc hỏi lại phần thiếu nếu không tách được nhãn tự do); không đưa code sửa thành /.",kho,"tu_viet: go tu do khong co nhan DE CODE TEST (lop 2)"
+B24,"Em sửa code Python xong lưu lại rồi mà bấm Run nó vẫn in ra kết quả y như bản cũ từ hôm qua, hình như đang chạy nhầm file hay lỗi VS Code, giúp em chỉnh cấu hình chạy file với ạ.","Từ chối vì đây là lỗi môi trường / chạy nhầm file, nằm ngoài phạm vi chỉ hỗ trợ lỗi logic Python Mini Lab (code chạy đúng file nhưng kết quả sai); hướng dẫn học viên kiểm tra tên file đang mở/chạy trước rồi quay lại kèm [DE] [CODE] [TEST] nếu còn sai logic.","Từ chối đúng phạm vi (nêu rõ không hỗ trợ lỗi môi trường/chạy file) và hướng dẫn quay lại khi có bài sai logic.",tu_choi,"nguoi_dung: S14 (tai hien tu khao sat - loi moi truong chay nham file, lop 3)"

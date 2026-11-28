@@ -14,7 +14,7 @@ Tối đa MAX_MODEL_CALLS lần gọi model mỗi lượt để chi phí có tr�
 import json
 
 from ai import call_model
-from tools import parse_input, lookup_lab, check_no_solution, MUC_TOI_DA
+from tools import parse_input, lookup_lab, check_no_solution, check_syntax, MUC_TOI_DA
 from tracing import note
 
 MAX_MODEL_CALLS = 2
@@ -79,9 +79,17 @@ YEU_CAU_CAP = {
         "Ví dụ đúng: \"Đếm số khoảng trắng và đếm số từ có phải là một không, khi giữa n từ chỉ có bao nhiêu khoảng trắng?\""),
     4: ("CẤP 4 — VÍ DỤ TƯƠNG TỰ. Đưa một tình huống ĐỜI THƯỜNG hoặc bài KHÁC HẲN chủ đề bài gốc (không còn là "
         "bài của học viên, không dùng lại input/test của học viên) nhưng có CÙNG LOẠI LỖI, rồi hỏi học viên trả lời "
-        "tình huống đó. KHÔNG dùng lại tên hàm, tên biến, tham số của bài gốc; không có dòng nào dán vào bài gốc được.\n"
+        "tình huống đó. Tình huống phải tái hiện ĐÚNG nguyên nhân gây sai của bài gốc (tự kiểm: trong tình huống đó, "
+        "cách làm sai có thật sự cho kết quả sai không). Chỉ hỏi kết quả của tình huống, KHÔNG hỏi \"nên chọn / nên dùng / "
+        "nên khởi tạo gì\" (đó là khuyên sửa). KHÔNG dùng lại tên hàm, tên biến, tham số của bài gốc; "
+        "không có dòng nào dán vào bài gốc được.\n"
         "Ví dụ đúng: \"Một hàng rào dài 3 đoạn thì cần mấy cái cột — số cột và số đoạn có bằng nhau không?\""),
 }
+
+TU_CHOI_CU_PHAP = ("Code của bạn đang bị lỗi cú pháp (SyntaxError) — phần này nằm ngoài phạm vi của mình, vì mình chỉ "
+                   "gợi mở lỗi logic (code chạy được nhưng ra kết quả sai). Bạn đọc kỹ thông báo lỗi Python đưa ra "
+                   "ở dòng %s, sửa cho code chạy được rồi quay lại nếu kết quả vẫn sai nhé — thông báo đó đang chỉ "
+                   "ra điều gì ở dòng này?")
 
 QUA_CAP = ("Bạn đã đi qua cả 4 cấp gợi ý. Bạn thử mang đề, code và những gì đã thử tới lab coach nhé — "
            "khi giải thích lại cho người khác, bạn thấy bước nào mình chưa chắc nhất?")
@@ -128,6 +136,13 @@ def answer(text: str) -> dict:
         note("dừng: MUC=%d vượt %d cấp → khuyên hỏi lab coach" % (p["muc"], MUC_TOI_DA))
         return {"output": QUA_CAP}
     muc = p["muc"]
+
+    # Lỗi cú pháp nằm ngoài phạm vi (chỉ hỗ trợ lỗi logic) → từ chối, không gọi model
+    if p["code"]:
+        cp = check_syntax(p["code"])
+        if not cp["ok"]:
+            note("dừng: code lỗi cú pháp (dòng %s) → ngoài phạm vi, không gọi model" % cp["dong"])
+            return {"output": TU_CHOI_CU_PHAP % (cp["dong"] or "?")}
 
     # Bước 3 — căn cứ
     can_cu = lookup_lab(p["de"] or text, p["code"])

@@ -83,6 +83,23 @@ def lookup_lab(de: str, code: str = "") -> list:
     return [{k: tot_nhat[k] for k in ("code", "de", "test_mau", "loi_hay_gap")}]
 
 
+# ---------------------------------------------------------------- check_syntax
+@tool
+def check_syntax(code: str) -> dict:
+    """check_syntax · Input: code học viên (str) · Output: {"ok": bool, "dong": int|None} ·
+    Không tác động ra ngoài — chỉ biên dịch (compile) để kiểm cú pháp, KHÔNG chạy code.
+
+    Lỗi cú pháp nằm ngoài phạm vi (chỉ hỗ trợ lỗi logic: code chạy được nhưng ra kết quả sai).
+    """
+    try:
+        compile(code, "<code_hoc_vien>", "exec")
+        return {"ok": True, "dong": None}
+    except SyntaxError as e:
+        return {"ok": False, "dong": e.lineno}
+    except ValueError:
+        return {"ok": True, "dong": None}
+
+
 # ---------------------------------------------------------------- check_no_solution
 def _ten(s: str) -> set:
     """Các tên (biến, hàm) trong một đoạn, bỏ tên có sẵn của Python."""
@@ -96,6 +113,9 @@ def _gon(s: str) -> str:
 TU_KHOA_CAU_TRUC = {"for", "while", "if", "elif", "else", "return", "def", "lambda"}
 # Cụm tiếng Việt chỉ vào vùng code — cấp 1 chưa được dùng ("điều kiện" không chặn vì đề bài cũng có điều kiện)
 CUM_CHI_VUNG_CODE = ["vòng lặp", "dòng code", "dòng lệnh", "câu lệnh", "biến "]
+# Cụm khuyên cách sửa — cấp 4 (ví dụ tương tự) chỉ được hỏi về tình huống ví dụ, không quay lại khuyên sửa bài gốc
+CUM_KHUYEN_SUA = ["bạn nên", "nên chọn", "nên dùng", "nên đặt", "nên đổi", "nên sửa", "nên khởi tạo",
+                  "giá trị khởi tạo nào", "khởi tạo bằng"]
 
 
 def _co_tu(a: str, ten: str) -> bool:
@@ -160,6 +180,9 @@ def kiem_cap(a: str, student_code: str, muc: int, test: str = "") -> str:
         dung_lai = _ten_dung_lai(a, ten_bai | _ten_ham_va_tham_so(student_code))
         if dung_lai:
             return "cấp 4 phải là bài khác, không dùng lại tên của bài gốc: %s" % ", ".join(sorted(dung_lai))
+        khuyen = [c for c in CUM_KHUYEN_SUA if c in a.lower()]
+        if khuyen:
+            return "cấp 4 chỉ hỏi về tình huống ví dụ, không khuyên cách sửa ('%s')" % khuyen[0]
     return ""
 
 

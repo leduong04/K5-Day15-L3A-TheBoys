@@ -40,7 +40,7 @@ Dùng 3 nguồn với mục đích khác nhau (chi tiết tại `data/DATA_CARD.
 
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
-| 1 | | | | __/__ | | |
+| 1 | `run-1@20261128-092750` | `gemini-3.1-flash-lite` | Workflow cố định CP3 (`parse_input` → `lookup_lab` → `call_model` → `check_no_solution`), prompt 4 cấp bản đầu | 13/24 | 54% | Chưa |
 | 2 | | | | __/__ | | |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.

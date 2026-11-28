@@ -34,15 +34,15 @@ LUẬT BẮT BUỘC
 6. Code có vẻ đúng mà test sai: hỏi học viên kiểm lại kết quả mong đợi, không ép tìm lỗi.
 7. Thiếu đề, code hoặc kết quả test (người dùng gõ tự do): hỏi lại đúng phần còn thiếu.
 
-CẤP GỢI Ý
-1 = quan sát: so kết quả với mong đợi, chưa chỉ vùng code
+CẤP GỢI Ý — tuân thủ ĐÚNG cấp được yêu cầu, không nhảy cấp (chi tiết + ví dụ ở phần "Cấp gợi ý" trong tin nhắn)
+1 = quan sát: chỉ so kết quả với mong đợi, CHƯA chỉ vùng code (không trích code, không tên biến, không nói điều kiện nào sai)
 2 = định hướng: hỏi về một vùng / dòng / biến cụ thể
-3 = gợi ý khái niệm: nhắc kiến thức Python liên quan, không nói cách sửa
-4 = ví dụ tương tự: một bài KHÁC cùng loại lỗi, tên hàm/biến khác, không có dòng nào dán thẳng vào bài gốc được
+3 = gợi ý khái niệm: phải gọi tên một khái niệm Python liên quan, không nói cách sửa
+4 = ví dụ tương tự: một bài KHÁC chủ đề cùng loại lỗi, tên hàm/biến khác, không có dòng nào dán thẳng vào bài gốc được
 Không lặp lại điều học viên đã thử.
 
 TRẢ VỀ CHỈ MỘT JSON, không thêm chữ nào khác:
-{"vi_tri": "dòng/biến nghi sai", "loai_loi": "tên ngắn", "cau_hoi": "câu hỏi duy nhất"}"""
+{"vi_tri": "dòng/biến nghi sai", "loai_loi": "tên ngắn", "khai_niem": "khái niệm Python liên quan (cấp 3 bắt buộc, phải xuất hiện nguyên văn trong cau_hoi)", "cau_hoi": "câu hỏi duy nhất"}"""
 
 HOI_LAI = {
     "DE": "Bạn dán giúp mình đề bài (hàm cần làm gì) dưới nhãn [DE] được không?",
@@ -57,6 +57,32 @@ DU_PHONG = {
     4: "Nếu viết một bài thật ngắn (3–4 dòng) dùng đúng cấu trúc bạn đang nghi ngờ rồi chạy thử, kết quả có như bạn nghĩ không?",
 }
 
+# Yêu cầu riêng của từng cấp — chèn vào lời gọi theo cấp đang hỏi (lượt 1 lệch cấp 6/24 câu).
+# Ví dụ dùng bài dem_tu (đếm từ trong câu) — KHÔNG phải bài nào trong data/ hay bộ câu thử.
+VI_DU_BAI = ("Bài ví dụ (chỉ để hiểu cấp, không dùng lại): đề \"dem_tu(cau) đếm số từ trong câu\"; code đếm dấu cách "
+             "`dem = 0` rồi `for ky_tu in cau: if ky_tu == ' ': dem += 1`; test dem_tu(\"học Python vui\") ra 2, mong đợi 3.")
+
+YEU_CAU_CAP = {
+    1: ("CẤP 1 — QUAN SÁT. Chỉ hỏi về KẾT QUẢ: kết quả thực tế lệch mong đợi bao nhiêu, phần chênh đó ứng với "
+        "phần tử / trường hợp nào của input hoặc của đề. KHÔNG trích code, KHÔNG nhắc tên biến, KHÔNG nhắc "
+        "vòng lặp/điều kiện/range/len hay bất kỳ dòng nào, KHÔNG nói điều kiện nào sai.\n"
+        "Ví dụ đúng: \"Kết quả thiếu đúng 1 so với mong đợi — với câu 3 từ, bạn thấy từ nào có thể chưa được đếm?\"\n"
+        "Ví dụ SAI (đã sang cấp 2): \"Vòng `for ky_tu in cau` có đếm từ cuối không?\""),
+    2: ("CẤP 2 — ĐỊNH HƯỚNG. Chỉ vào MỘT vùng / dòng / biến cụ thể (được trích nguyên văn code học viên trong `...`) "
+        "và hỏi học viên theo dõi giá trị ở đó. KHÔNG nói dòng đó sai thế nào, không nhắc khái niệm để sửa.\n"
+        "Ví dụ đúng: \"Khi chạy tay với \"học Python vui\", biến `dem` tăng lên ở những ký tự nào?\""),
+    3: ("CẤP 3 — GỢI Ý KHÁI NIỆM. Câu hỏi PHẢI gọi tên một khái niệm / quy tắc Python liên quan tới lỗi "
+        "(ví dụ: range không lấy cận trên, thụt lề quyết định lệnh thuộc khối nào, giá trị khởi tạo của biến tích luỹ, "
+        "mẫu số khi tính trung bình, thứ tự ưu tiên and/or, % và //…) và hỏi học viên áp khái niệm đó vào code. "
+        "Không mô tả lại việc code đang làm sai ở biến/dòng nào (đó là cấp 2), không nói cách sửa; "
+        "hỏi về QUY TẮC của Python để học viên tự đem quy tắc đó soi lại code.\n"
+        "Ví dụ đúng: \"Đếm số khoảng trắng và đếm số từ có phải là một không, khi giữa n từ chỉ có bao nhiêu khoảng trắng?\""),
+    4: ("CẤP 4 — VÍ DỤ TƯƠNG TỰ. Đưa một tình huống ĐỜI THƯỜNG hoặc bài KHÁC HẲN chủ đề bài gốc (không còn là "
+        "bài của học viên, không dùng lại input/test của học viên) nhưng có CÙNG LOẠI LỖI, rồi hỏi học viên trả lời "
+        "tình huống đó. KHÔNG dùng lại tên hàm, tên biến, tham số của bài gốc; không có dòng nào dán vào bài gốc được.\n"
+        "Ví dụ đúng: \"Một hàng rào dài 3 đoạn thì cần mấy cái cột — số cột và số đoạn có bằng nhau không?\""),
+}
+
 QUA_CAP = ("Bạn đã đi qua cả 4 cấp gợi ý. Bạn thử mang đề, code và những gì đã thử tới lab coach nhé — "
            "khi giải thích lại cho người khác, bạn thấy bước nào mình chưa chắc nhất?")
 
@@ -67,13 +93,14 @@ def build_user_prompt(p: dict, can_cu: list, muc: int) -> str:
         cc = json.dumps(can_cu[0], ensure_ascii=False)
     else:
         cc = "(không tìm thấy bài trong dữ liệu — chỉ dựa vào đề học viên dán)"
+    cap = "Cấp gợi ý: %d\n%s\n%s" % (muc, VI_DU_BAI, YEU_CAU_CAP.get(muc, YEU_CAU_CAP[1]))
     if not p["co_nhan"]:
-        return ("Căn cứ: %s\n\nCấp gợi ý: %d\n\nHọc viên gõ tự do (không theo nhãn):\n<tin_nhan>\n%s\n</tin_nhan>"
-                % (cc, muc, p["raw"]))
+        return ("Căn cứ: %s\n\n%s\n\nHọc viên gõ tự do (không theo nhãn):\n<tin_nhan>\n%s\n</tin_nhan>"
+                % (cc, cap, p["raw"]))
     return ("Căn cứ (bài trong dữ liệu, chỉ để tham khảo — nếu khác đề học viên dán thì theo đề học viên): %s"
-            "\n\nCấp gợi ý: %d\n\nĐề học viên dán:\n%s\n\n"
+            "\n\n%s\n\nĐề học viên dán:\n%s\n\n"
             "<code_hoc_vien>\n%s\n</code_hoc_vien>\n\nKết quả test: %s\n\nHọc viên đã thử: %s"
-            % (cc, muc, p["de"], p["code"], p["test"], p["da_thu"] or "(chưa ghi)"))
+            % (cc, cap, p["de"], p["code"], p["test"], p["da_thu"] or "(chưa ghi)"))
 
 
 def parse_json(text: str) -> dict:
@@ -114,12 +141,16 @@ def answer(text: str) -> dict:
         data = parse_json(r["text"])
         q = str(data.get("cau_hoi", "")).strip()
         note("lần %d · cấp=%d · vi_tri=%s · loai=%s" % (lan, muc, data.get("vi_tri"), data.get("loai_loi")))
-        kiem = check_no_solution(q, p["code"] or text, muc)
+        kiem = check_no_solution(q, p["code"] or text, muc, p["test"])
+        kn = str(data.get("khai_niem") or "").strip()
+        if kiem["ok"] and muc == 3 and (not kn or kn.lower() not in q.lower()):
+            kiem = {"ok": False, "ly_do": "cấp 3 phải gọi tên một khái niệm Python ngay trong câu hỏi "
+                                          "(trường khai_niem trống hoặc không có trong cau_hoi)"}
         if kiem["ok"]:
             return {"output": q}
         note("lần %d bị loại: %s" % (lan, kiem["ly_do"]))
-        nhac = ("\n\nLƯU Ý: câu trước bị loại vì %s. Chỉ trả một câu hỏi, không đưa code hay cách sửa."
-                % kiem["ly_do"])
+        nhac = ("\n\nLƯU Ý: câu trước (\"%s\") bị loại vì %s. Viết lại đúng CẤP %d như yêu cầu ở trên; "
+                "chỉ trả một câu hỏi, không đưa code hay cách sửa." % (q[:200], kiem["ly_do"], muc))
 
     note("dừng: %d lần vẫn không đạt → câu dự phòng cấp %d" % (MAX_MODEL_CALLS, muc))
     return {"output": DU_PHONG[muc]}

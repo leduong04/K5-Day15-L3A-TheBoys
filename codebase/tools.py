@@ -93,9 +93,79 @@ def _gon(s: str) -> str:
     return re.sub(r"\s+", "", s)
 
 
+TU_KHOA_CAU_TRUC = {"for", "while", "if", "elif", "else", "return", "def", "lambda"}
+# Cụm tiếng Việt chỉ vào vùng code — cấp 1 chưa được dùng ("điều kiện" không chặn vì đề bài cũng có điều kiện)
+CUM_CHI_VUNG_CODE = ["vòng lặp", "dòng code", "dòng lệnh", "câu lệnh", "biến "]
+
+
+def _co_tu(a: str, ten: str) -> bool:
+    """`ten` xuất hiện như một từ riêng trong câu trả lời (không dính chữ khác)."""
+    return re.search(r"(?<!\w)%s(?!\w)" % re.escape(ten), a) is not None
+
+
+def _doan_trich(a: str) -> list:
+    """Các đoạn học viên/model đặt trong `...`, '...' hoặc "..." — nơi model hay trích code."""
+    return re.findall(r"`([^`]+)`|'([^']+)'|\"([^\"]+)\"", a)
+
+
+def _ten_dung_lai(a: str, ten: set) -> set:
+    """Tên của bài bị nhắc lại trong câu trả lời.
+    Tên có '_' (tong_chan, lon_nhat) thì bắt ở bất cứ đâu; tên ngắn không '_' (so, dem, tong)
+    chỉ bắt khi nằm trong dấu trích — vì dễ trùng chữ tiếng Việt không dấu ("so sánh")."""
+    trich = " ".join(" ".join(g) for g in _doan_trich(a))
+    thay = set()
+    for t in ten:
+        if len(t) < 2:
+            continue
+        if ("_" in t and _co_tu(a, t)) or _co_tu(trich, t):
+            thay.add(t)
+    return thay
+
+
+def _ten_ham_va_tham_so(code: str) -> set:
+    m = re.search(r"def\s+(\w+)\s*\(([^)]*)\)", code)
+    if not m:
+        return set()
+    return {m.group(1)} | {p.split("=")[0].strip() for p in m.group(2).split(",") if p.strip()}
+
+
+def kiem_cap(a: str, student_code: str, muc: int, test: str = "") -> str:
+    """Kiểm câu hỏi có đúng cấp không. Trả lý do nếu lệch cấp, "" nếu ổn.
+
+    Cấp 1 (quan sát): chưa được chỉ vùng code → không trích code, không nhắc tên biến
+      (trừ tên hàm và tham số — vì test của học viên cũng dùng), không nhắc hàm/lệnh có trong code
+      (range, len, for, if…).
+    Cấp 4 (ví dụ tương tự): phải là bài khác → không dùng lại tên hàm, tham số, biến của bài gốc.
+    Cấp 2, 3 không kiểm bằng code được (cấp 3 cần hiểu ý) → để prompt lo.
+    """
+    ten_bai = _ten(student_code)
+    if muc == 1:
+        test_gon = _gon(test)
+        for g in re.findall(r"`([^`]+)`", a):
+            if _gon(g) not in test_gon:
+                return "cấp 1 không được trích code (`%s`) — chỉ so kết quả với mong đợi" % g
+        cho_phep = _ten_ham_va_tham_so(student_code)
+        bien = _ten_dung_lai(a, ten_bai - cho_phep)
+        if bien:
+            return "cấp 1 chưa được chỉ vào biến: %s" % ", ".join(sorted(bien))
+        dung_trong_code = set(re.findall(r"[A-Za-z_]\w*", student_code))
+        lenh = {t for t in dung_trong_code & (TEN_CO_SAN - set(keyword.kwlist) | TU_KHOA_CAU_TRUC)
+                if len(t) >= 2 and _co_tu(a, t)}
+        if lenh:
+            return "cấp 1 chưa được chỉ vào lệnh/hàm trong code: %s" % ", ".join(sorted(lenh))
+        vung = [c for c in CUM_CHI_VUNG_CODE if c in a.lower()]
+        if vung:
+            return "cấp 1 chưa được chỉ vào vùng code ('%s')" % vung[0]
+    if muc >= 4:
+        dung_lai = _ten_dung_lai(a, ten_bai | _ten_ham_va_tham_so(student_code))
+        if dung_lai:
+            return "cấp 4 phải là bài khác, không dùng lại tên của bài gốc: %s" % ", ".join(sorted(dung_lai))
+    return ""
+
+
 @tool
-def check_no_solution(answer: str, student_code: str, muc: int = 1) -> dict:
-    """check_no_solution · Input: câu trả lời của model, code học viên, cấp gợi ý ·
+def check_no_solution(answer: str, student_code: str, muc: int = 1, test: str = "") -> dict:
+    """check_no_solution · Input: câu trả lời của model, code học viên, cấp gợi ý, kết quả test (tuỳ chọn) ·
     Output: {"ok": bool, "ly_do": str} · Không tác động ra ngoài.
 
     Không đạt khi:
@@ -103,7 +173,7 @@ def check_no_solution(answer: str, student_code: str, muc: int = 1) -> dict:
     2. có cụm kiểu "sửa thành", "đáp án là"…;
     3. có đoạn trong `...` dùng tên biến/hàm của bài mà KHÔNG phải trích nguyên văn code học viên
        (dấu hiệu code đã sửa, vd `range(1, n+1)`);
-    4. cấp 4: đoạn `...` dùng lại tên biến/hàm của bài gốc (ví dụ tương tự phải là bài khác);
+    4. lệch cấp (kiem_cap): cấp 1 trích code / nhắc biến / nhắc lệnh; cấp 4 dùng lại tên bài gốc;
     5. sai định dạng: rỗng, không có đúng 1 dấu "?", hoặc dài hơn MAX_TU từ.
     """
     a = (answer or "").strip()
@@ -127,6 +197,9 @@ def check_no_solution(answer: str, student_code: str, muc: int = 1) -> dict:
         if _gon(doan) not in code_gon:
             return {"ok": False, "ly_do": "đoạn `%s` không phải trích từ code học viên (có thể là code sửa)" % doan}
 
+    lech = kiem_cap(a, student_code, muc, test)
+    if lech:
+        return {"ok": False, "ly_do": lech}
     if a.count("?") != 1:
         return {"ok": False, "ly_do": "không có đúng một câu hỏi"}
     if len(a.split()) > MAX_TU:

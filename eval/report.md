@@ -9,7 +9,7 @@
 | Lượt | Run ID | Đạt / tổng | % | thuong | kho | tu_choi | So với chuẩn "đạt" |
 |---|---|---|---|---|---|---|---|
 | 1 | `run-1@20261128-092750` | 13/24 | 54% | 6/12 (50%) | 5/8 (62%) | 2/4 (50%) | **chưa** (< 85%, có 1 câu lộ toán tử sửa `B23` và 2/4 `tu_choi` trượt) |
-| 2 | | __/__ | | __/__ | __/__ | __/__ | đạt / chưa |
+| 2 | `run-2@20261128-100327` | Chưa chấm / 24 (19 câu có output, 5 câu lỗi API 429) | — | — | — | — | Chưa thể kết luận |
 
 Kết quả từng câu: `eval/run-1.csv`, `eval/run-2.csv`. Trace: `traces/run-1.jsonl`, `traces/run-2.jsonl`.
 
@@ -34,12 +34,10 @@ Kết quả từng câu: `eval/run-1.csv`, `eval/run-2.csv`. Trace: `traces/run-
 
 ## 3. Một lần cải tiến
 
-- Nhắm vào nhóm lỗi: __ — vì sao là nhóm **đau nhất với người dùng**: __
-- Đã sửa gì (có thể vài thay đổi cùng nhắm nhóm lỗi đó): __
-- Kết quả: nhóm lỗi đó __/__ → __/__ · tổng __% → __%
-- Câu nào **tệ đi** sau khi sửa: __
+- Giữa lượt 1 và lượt 2 chưa có cải tiến prompt / luồng được ghi nhận; lượt 2 dùng cùng cấu hình để chạy lại benchmark.
+- Vì vậy chưa có so sánh trước–sau hoặc câu nào có thể kết luận là tệ đi.
 
 ## 4. Còn lại
 
-- Lỗi chưa sửa + nguy hiểm thế nào: __
-- Nếu có thêm 1 tuần: __
+- Lượt 2 gặp HTTP 429 do vượt giới hạn yêu cầu/phút của free tier tại `B19`, `B21`–`B24`; các hàng lỗi không có output để chấm. Toàn bộ cột `pass` của run 2 còn trống, nên không có điểm x/24 cho lượt này.
+- Lượt 1 vẫn cho thấy lỗi hành vi ở cấp gợi ý, từ chối ngoài phạm vi và rò rỉ gợi ý sửa. Sau khi quota được làm mới, chạy lại thành lượt mới với `--wait 6` (không sửa CSV run 2); chấm riêng tất cả output theo `metric_spec.yaml`.

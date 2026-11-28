@@ -33,9 +33,9 @@
 | | |
 |---|---|
 | Dùng để làm gì | Đánh giá chất lượng bản chạy thử Socratic Debugger qua `python run.py eval` (`thuong`, `kho`, `tu_choi`). |
-| Từ đâu | Kết hợp 12 câu nhóm tự viết (`tu_viet`, `B01`–`B12`) và 6 câu nguồn `nguoi_dung` (`B13`–`B18`) tái hiện từ mô tả tình huống lỗi logic Python Mini Lab và cách hỏi thực tế trong 4 biên bản phỏng vấn `evidence/interviews/P1.md`–`P4.md` (do người được phỏng vấn không lưu file code gốc). |
-| Xử lý những bước gì | Chuẩn hoá đầu vào theo đúng nhãn `[DE]`, `[CODE]`, `[TEST]` (bắt buộc) và `[MUC]`, `[DA_THU]` (tuỳ chọn) ở `spec.md` §4; ẩn danh người học; gắn nhãn `type`, `source` (ghi rõ tái hiện từ mô tả phỏng vấn) và `pass_criterion` kiểm chứng được. |
-| Số dòng / số đoạn | 18 câu: 9 `thuong`, 6 `kho`, 3 `tu_choi` (gồm 2 câu tấn công `B11`, `B12`). Nguồn: 6 `nguoi_dung` (6/18 = 33,3% ≥ 1/3) · 12 `tu_viet`. |
-| Phiên bản / ngày lấy | v2 CP2 · 27/11/2026. |
-| Nhãn | Kết hợp `nguoi_dung` (tái hiện từ mô tả phỏng vấn `P1`–`P4`) và `tu_viet`. |
-| Giới hạn | Bộ câu đã đạt ngưỡng CP2 (≥10 câu, ≥5 `kho`, ≥2 `tu_choi`, ≥1/3 nguồn `nguoi_dung`), nhưng các câu `nguoi_dung` được tái hiện từ mô tả lời kể do học viên không lưu bản code gốc; cần tiếp tục mở rộng lên 20–30 câu cho CP3 (và ưu tiên xin code lỗi gốc đã ẩn danh nếu có thêm người dùng gửi). |
+| Từ đâu | Kết hợp 14 câu nhóm tự viết (`tu_viet`, gồm các tình huống biên, tấn công, gõ tự do không nhãn và đối chiếu `data/labs.json`) và 10 câu nguồn `nguoi_dung` tái hiện trung thực từ mô tả tình huống lỗi logic và cách hỏi thực tế trong 4 biên bản phỏng vấn (`P1`–`P4`) và khảo sát 20 học viên (`S06`, `S12`, `S14`, `S16` trong `evidence/survey/results.csv`). |
+| Xử lý những bước gì | Chuẩn hoá đầu vào theo đúng nhãn `[DE]`, `[CODE]`, `[TEST]` (bắt buộc) và `[MUC]`, `[DA_THU]` (tuỳ chọn) ở `spec.md` §4 (kèm 1 câu gõ tự do `B23` để kiểm khả năng tự tách); ẩn danh người học; gắn nhãn `type`, `source` và `pass_criterion` kiểm chứng được. |
+| Số dòng / số đoạn | 24 câu: 12 `thuong`, 8 `kho`, 4 `tu_choi` (gồm 2 câu tấn công `B11`, `B12`). Nguồn: 10 `nguoi_dung` (10/24 = 41,7% ≥ 1/3) · 14 `tu_viet`. |
+| Phiên bản / ngày lấy | v3 CP3 · 28/11/2026. |
+| Nhãn | Kết hợp `nguoi_dung` (tái hiện từ phỏng vấn `P1`–`P4` và khảo sát `S06, S12, S14, S16`) và `tu_viet`. |
+| Giới hạn | Bộ câu đã đạt đủ chuẩn CP3 (24 câu nằm trong khung 20–30 câu, ≥5 `kho`, ≥2 `tu_choi`, 41,7% nguồn `nguoi_dung`). Các câu `nguoi_dung` được tái hiện từ mô tả lời kể do học viên không lưu file code gốc; đóng băng trước khi chạy Lượt 1 và giữ nguyên qua Lượt 2. |

@@ -4,6 +4,8 @@
   python run.py simulate              chạy đủ số phiên trong personas.yaml (≥50) → cost/simulate-N.csv
                                       + cost/simulate-N-summary.md + traces/simulate-N.jsonl
   python run.py simulate --wait 4     như trên, nghỉ 4 giây giữa hai lượt hỏi (gói miễn phí hay giới hạn lượt / phút)
+  python run.py simulate --resume cost/simulate-stopped.csv --wait 8
+                                      tiếp tục phần còn thiếu của một lượt bị dừng, giữ nguyên các phiên đã chạy
   python run.py simulate --rate-from eval/run-2.csv
                                       lấy tỉ lệ đạt từ đúng lượt này (mặc định: lượt run-N mới nhất đã chấm, cùng model)
 
@@ -19,6 +21,7 @@ Cách tính (guide bước 4.2):
 Chỉ dùng thư viện chuẩn.
 """
 import datetime
+import csv
 import json
 import math
 import os
@@ -48,6 +51,8 @@ USAGE = """Cách dùng:
   python run.py simulate --try [N]    chạy thử N phiên (mặc định 10) → cost/simulate-try.csv
   python run.py simulate              chạy đủ số phiên trong cost/personas.yaml → cost/simulate-N.csv + bản tóm tắt
   python run.py simulate --wait 4     nghỉ 4 giây giữa hai lượt hỏi
+  python run.py simulate --resume cost/simulate-stopped.csv --wait 8
+                                      tiếp tục lượt 50 phiên đã dừng, không gọi lại các phiên hoàn tất
   python run.py simulate --rate-from eval/run-2.csv   lấy tỉ lệ đạt từ đúng lượt này"""
 
 
@@ -280,7 +285,7 @@ def pick_rate(models, rate_from=None):
     return None, ev.latest_graded_run()
 
 
-def run(try_n=None, wait=0.0, rate_from=None):
+def run(try_n=None, wait=0.0, rate_from=None, resume=None):
     cfg, warn = load_config()
     for w in warn:
         print("⚠️ " + w)
@@ -294,13 +299,58 @@ def run(try_n=None, wait=0.0, rate_from=None):
         print("⚠️ sessions = %d — bản nộp cần ≥50 phiên (guide 4.2)." % n_sessions)
     answer, tracing = ev.load_answer()
     plan = plan_sessions(cfg, bench, n_sessions)
+    resumed_rows, resumed_cases, completed = [], [], 0
+    if resume:
+        if try_n:
+            sys.exit("Không dùng --resume cùng --try; chỉ tiếp tục lượt mô phỏng ≥50 phiên.")
+        resume_path = resume if os.path.isabs(resume) else os.path.join(ROOT, resume)
+        if not os.path.isfile(resume_path):
+            sys.exit("Không tìm thấy lượt dừng để tiếp tục: %s" % ev.rel(resume_path))
+        with open(resume_path, encoding="utf-8-sig", newline="") as f:
+            resumed_rows = list(csv.DictReader(f))
+        if not resumed_rows or len(resumed_rows) >= n_sessions:
+            sys.exit("File tiếp tục phải có từ 1 đến %d phiên đã hoàn tất." % (n_sessions - 1))
+        old_ids = {r.get("run_id", "") for r in resumed_rows}
+        if len(old_ids) != 1 or not next(iter(old_ids)).startswith("simulate-stopped@"):
+            sys.exit("Chỉ tiếp tục artifact simulate-stopped.csv do khung sinh.")
+        for index, row in enumerate(resumed_rows):
+            sid, persona, inputs = plan[index]
+            if row.get("session") != sid or row.get("persona") != persona["name"] or int(row.get("turns") or 0) != len(inputs):
+                sys.exit("File dừng không cùng seed/cấu hình hiện tại tại phiên %s; không tiếp tục để tránh ghép sai." % sid)
+            expected = " ‖ ".join(x[:80] for x in inputs)
+            if row.get("inputs") != expected:
+                sys.exit("Đầu vào phiên %s không khớp plan hiện tại; không tiếp tục." % sid)
+            for key in ("turns", "model_calls", "tool_calls", "tokens_in", "tokens_out"):
+                row[key] = int(row.get(key) or 0)
+            row["latency_s"] = float(row.get("latency_s") or 0)
+            row["by_model"] = json.loads(row.get("tokens_by_model") or "{}")
+            row["error"] = row.get("error") or ""
+        trace_path = os.path.join(ROOT, "traces", "simulate-stopped.jsonl")
+        if not os.path.isfile(trace_path):
+            sys.exit("Thiếu traces/simulate-stopped.jsonl; không ghép phiên nếu thiếu trace.")
+        grouped = {}
+        with open(trace_path, encoding="utf-8") as f:
+            for line in f:
+                event = json.loads(line)
+                case_id = event.pop("case", "")
+                event.pop("run_id", None)
+                grouped.setdefault(case_id, []).append(event)
+        for index, row in enumerate(resumed_rows):
+            for turn in range(1, row["turns"] + 1):
+                case_id = "%s-T%d" % (row["session"], turn)
+                if case_id not in grouped:
+                    sys.exit("Trace bị thiếu %s; không tiếp tục để tránh mất dấu vết." % case_id)
+                resumed_cases.append((case_id, grouped[case_id]))
+        completed = len(resumed_rows)
     n = ev.next_numbered(COST_DIR, "simulate", ".csv")
     name = "simulate-try" if try_n else "simulate-%d" % n
     stamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
     run_id = "%s@%s" % (name, stamp)  # đổi theo tên file thật khi lưu (save)
     print("Mô phỏng %d phiên (seed %s)%s ..." % (n_sessions, cfg["seed"], " — CHẠY THỬ" if try_n else ""))
-    rows, cases, stopped, first = [], [], False, True
-    for sid, persona, inputs in plan:
+    if completed:
+        print("Tiếp tục sau %d/%d phiên đã hoàn tất." % (completed, n_sessions))
+    rows, cases, stopped, first = resumed_rows, resumed_cases, False, completed == 0
+    for sid, persona, inputs in plan[completed:]:
         agg = {"model_calls": 0, "tool_calls": 0, "tokens_in": 0, "tokens_out": 0, "latency_s": 0.0}
         models, errors, by_model = set(), [], {}
         for t, text in enumerate(inputs, start=1):
@@ -383,7 +433,7 @@ def main(args):
     if any(a in ("-h", "--help", "help") for a in args):
         print(USAGE)
         return 0
-    try_n, wait, rate_from, i = None, 0.0, None, 0
+    try_n, wait, rate_from, resume, i = None, 0.0, None, None, 0
     while i < len(args):
         a = args[i]
         if a == "--try":
@@ -413,11 +463,17 @@ def main(args):
                 return 2
             rate_from = args[i + 1]
             i += 1
+        elif a == "--resume":
+            if i + 1 >= len(args) or args[i + 1].startswith("-"):
+                print("Sau --resume cần file simulate-stopped.csv.\n" + USAGE)
+                return 2
+            resume = args[i + 1]
+            i += 1
         else:
             print("Không hiểu tham số: %s\n%s" % (a, USAGE))
             return 2
         i += 1
-    return run(try_n=try_n, wait=wait, rate_from=rate_from)
+    return run(try_n=try_n, wait=wait, rate_from=rate_from, resume=resume)
 
 
 if __name__ == "__main__":

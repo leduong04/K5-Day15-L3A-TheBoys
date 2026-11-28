@@ -4,6 +4,8 @@
 
 Mục tiêu: `call_model()` trong `codebase/ai.py` gọi model thật và trả về câu trả lời kèm **số token** đo được. Prompt và luồng là phần nhóm tự viết trong `codebase/agent.py`. File này chỉ lo phần kết nối.
 
+Kết nối Gemini đã được cài sẵn trong `codebase/ai.py` bằng thư viện chuẩn Python. Trong `.env`, đặt `MODEL_PROVIDER=gemini`, `MODEL_NAME` theo model mà tài khoản của nhóm được phép gọi, và `API_KEY` (hoặc `GEMINI_API_KEY`). Không commit `.env`. Chỉ xác nhận đã nối thành công sau khi `python run.py eval --try` ghi token vào/ra lớn hơn 0.
+
 Ba ví dụ dưới đây (OpenAI, Claude, Ollama) **đã chạy với key thật ngày 25/11/2026**: chép vào là chạy.
 
 ## 1. Điền `.env`
@@ -124,7 +126,7 @@ def call_ollama(system, user):
 - Không cần key.
 - **Rất chậm trên laptop:** ví dụ `gemma4:12b` mất 43–165 giây mỗi câu trên máy Mac. Chỉ hợp để thử luồng, không đủ nhanh để chạy hết bộ câu thử và 50 phiên mô phỏng.
 
-### 2.4 Nhà cung cấp khác (Gemini…)
+### 2.4 Nhà cung cấp khác
 
 1. Mở trang quickstart chính thức của hãng, chép ví dụ Python **ngắn nhất** gọi được 1 câu, dán vào hàm dưới.
 2. Bật `SHOW_RAW = True`, hỏi thử 1 câu, rồi xem câu trả lời và số token nằm ở trường nào trong phản hồi.

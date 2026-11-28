@@ -112,14 +112,12 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi AI ở quyết định trung tâm | **Thật** (bắt buộc từ CP3) | Model: ____ |
-|  |  |  |
+| Lời gọi AI ở quyết định trung tâm | **Đã có connector, chưa xác nhận chạy thật** | `codebase/ai.py` hỗ trợ Gemini; cần điền key/model vào `.env`, chạy `python run.py eval --try` và xác nhận token > 0 trước khi ghi là AI thật. |
+| Giao diện demo | Bản Tkinter | Nhận đề, code nhiều dòng, test; có nút tăng cấp gợi ý. |
 
 ## Dùng AI vào việc gì
 
-2–3 dòng (bắt buộc): nhóm dùng công cụ AI nào để làm gì, người kiểm lại phần nào. Chi tiết: [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md](AGENTS.md).
-
-____
+Codex hỗ trợ viết script tổng hợp số liệu đã ẩn danh và soạn nháp các mục spec/persona từ biên bản có sẵn; AI không tạo người phỏng vấn hay trích dẫn. Claude Code được dùng hỗ trợ tạo bài mẫu `synthetic`. Trước khi nộp, nhóm cần rà lại các giả định mở rộng từ mẫu nhỏ, số liệu script và cấu hình mô phỏng; chi tiết ở [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md](AGENTS.md).
 
 ## File mẫu — điền ở bước nào
 

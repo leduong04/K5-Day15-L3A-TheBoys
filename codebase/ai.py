@@ -1,23 +1,13 @@
-"""Nối model — chỗ DUY NHẤT trong bản chạy thử gọi model AI. NHÓM VIẾT phần gọi model thật.
+"""Model connector used by the prototype.
 
-Hợp đồng (giữ nguyên để khung đo được token):
-    call_model(system: str, user: str) -> dict với 4 khoá
-        "text":       str   chữ model trả về
-        "model":      str   tên model đã gọi (để tra giá ở bảng giá model)
-        "tokens_in":  int   số token vào, lấy từ trường usage trong phản hồi API — KHÔNG ước lượng
-        "tokens_out": int   số token ra, gồm cả token suy luận / suy nghĩ nếu API tính riêng
-    @model_call (từ tracing.py) tự ghi mỗi lần gọi vào trace; agent.py gọi call_model bao nhiêu lần
-    cũng được, khung tự cộng token.
-    Lỗi gọi model (hết lượt, sai key, mất mạng): cứ để exception bay ra — khung ghi lỗi vào cột error.
-
-Chế độ giả (mặc định khi .env chưa có MODEL_PROVIDER, hoặc MODEL_PROVIDER=fake):
-    trả một câu giả cố định, model "fake", token 0 — để luồng chạy hết từ trước CP2 (guide bước 3.2).
-    Lượt `run.py eval` / `run.py simulate` chạy bằng model giả KHÔNG được tính.
-
-Nối model thật: điền .env (chép từ .env.example), rồi viết nhánh gọi API ở dưới theo docs/connect-model.md
-(có ví dụ OpenAI, Claude, model chạy trên máy, và cách nối nhà cung cấp khác). Không dán API key vào file này.
+Set MODEL_PROVIDER=gemini, MODEL_NAME, and API_KEY in the ignored .env file.
+The fake provider remains available for local flow work, but its zero-token
+outputs must never be reported as a real evaluation.
 """
+import json
 import os
+import urllib.error
+import urllib.request
 
 from tracing import model_call
 
@@ -25,11 +15,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def load_env(path=os.path.join(ROOT, ".env")):
-    """Đọc file .env (KEY=VALUE mỗi dòng) vào biến môi trường, không ghi đè biến đã có. Khung — không cần sửa."""
+    """Load KEY=VALUE pairs without overwriting values already in the environment."""
     if not os.path.exists(path):
         return
-    with open(path, encoding="utf-8-sig") as f:
-        for line in f:
+    with open(path, encoding="utf-8-sig") as env_file:
+        for line in env_file:
             line = line.strip()
             if not line or line.startswith("#") or "=" not in line:
                 continue
@@ -40,7 +30,53 @@ def load_env(path=os.path.join(ROOT, ".env")):
 load_env()
 MODEL_PROVIDER = (os.environ.get("MODEL_PROVIDER") or "fake").strip().lower()
 MODEL_NAME = (os.environ.get("MODEL_NAME") or "").strip()
-API_KEY = (os.environ.get("API_KEY") or "").strip()
+API_KEY = (os.environ.get("API_KEY") or os.environ.get("GEMINI_API_KEY") or "").strip()
+
+
+def _post_json(url, headers, body, timeout=60):
+    request = urllib.request.Request(
+        url,
+        data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
+        method="POST",
+        headers={"Content-Type": "application/json", **headers},
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            return json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        # Do not include request headers or credentials in diagnostics.
+        detail = exc.read().decode("utf-8", "replace")[:500]
+        raise RuntimeError("Gemini API HTTP %d: %s" % (exc.code, detail)) from None
+    except urllib.error.URLError as exc:
+        raise RuntimeError("Không kết nối được Gemini API: %s" % exc.reason) from None
+
+
+def _call_gemini(system, user):
+    if not MODEL_NAME:
+        raise RuntimeError("Thiếu MODEL_NAME trong .env (ví dụ model Gemini được phép dùng).")
+    if not API_KEY:
+        raise RuntimeError("Thiếu API_KEY hoặc GEMINI_API_KEY trong .env.")
+    url = "https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent" % MODEL_NAME
+    body = {
+        "systemInstruction": {"parts": [{"text": system}]} if system else None,
+        "contents": [{"role": "user", "parts": [{"text": user}]}],
+        "generationConfig": {"responseMimeType": "application/json", "temperature": 0.2},
+    }
+    body = {key: value for key, value in body.items() if value is not None}
+    data = _post_json(url, {"x-goog-api-key": API_KEY}, body)
+    candidates = data.get("candidates") or []
+    if not candidates:
+        reason = (data.get("promptFeedback") or {}).get("blockReason", "không có candidate")
+        raise RuntimeError("Gemini không trả câu trả lời: %s" % reason)
+    text = "".join(part.get("text", "") for part in candidates[0].get("content", {}).get("parts", []))
+    usage = data.get("usageMetadata") or {}
+    tokens_in = int(usage.get("promptTokenCount", 0))
+    tokens_out = int(usage.get("candidatesTokenCount", 0)) + int(usage.get("thoughtsTokenCount", 0))
+    if not tokens_out and usage.get("totalTokenCount") is not None:
+        tokens_out = max(0, int(usage["totalTokenCount"]) - tokens_in)
+    if not text:
+        raise RuntimeError("Gemini trả về nội dung rỗng.")
+    return {"text": text, "model": MODEL_NAME, "tokens_in": tokens_in, "tokens_out": tokens_out}
 
 
 @model_call
@@ -48,9 +84,6 @@ def call_model(system: str, user: str) -> dict:
     if MODEL_PROVIDER == "fake":
         last = (user.strip().splitlines() or [""])[-1]
         return {"text": "[câu trả lời giả — chưa nối model] " + last[:60], "model": "fake", "tokens_in": 0, "tokens_out": 0}
-
-    # NHÓM VIẾT: gọi model thật ở đây (theo MODEL_PROVIDER, MODEL_NAME, API_KEY) rồi trả đúng 4 khoá.
-    # Ví dụ chép được cho từng nhà cung cấp: docs/connect-model.md mục 2.
-    raise NotImplementedError(
-        "chưa viết phần gọi model thật cho MODEL_PROVIDER=%s trong codebase/ai.py — xem docs/connect-model.md"
-        % MODEL_PROVIDER)
+    if MODEL_PROVIDER == "gemini":
+        return _call_gemini(system, user)
+    raise RuntimeError("MODEL_PROVIDER=%s chưa được hỗ trợ; chọn gemini hoặc fake." % MODEL_PROVIDER)

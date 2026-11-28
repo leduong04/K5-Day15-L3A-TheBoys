@@ -42,9 +42,12 @@ Dùng 3 nguồn với mục đích khác nhau (chi tiết tại `data/DATA_CARD.
 |---|---|---|---|---|---|---|
 | 1 | `run-1@20261128-092750` | `gemini-3.1-flash-lite` | Workflow cố định CP3 (`parse_input` → `lookup_lab` → `call_model` → `check_no_solution`), prompt 4 cấp bản đầu | 13/24 | 54% | Chưa |
 | 2 | `run-2@20261128-100327` | `gemini-3.1-flash-lite` | Cùng cấu hình; 19 câu có output, B19 và B21–B24 lỗi HTTP 429 do quota/phút | Chưa chấm / 24 | — | Chưa thể kết luận |
+| 3 | `run-3@20261128-121459` | `gemini-3.1-flash-lite` | Sau 1 lần cải tiến: siết prompt 4 cấp + `check_no_solution` (Cấp 1/4, chặn toán tử sửa) + chặn ngoài phạm vi (cú pháp/môi trường) + hỏi gom nhiều nhãn thiếu; chạy với `--wait 6` (1 câu `B23` lỗi `TimeoutError`) | **22/24** | **92%** | **Đạt** |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
 ## 6. Lỗi chính
 
-*(Điền sau khi chạy lượt 1 và lượt 2 — tóm 2–3 dòng từ `eval/report.md`: nhóm lỗi lớn nhất · đã sửa gì · còn lại gì.)*
+- **Nhóm lỗi lớn nhất lượt 1:** Lệch cấp gợi ý `[MUC]` (6/11 lỗi: Cấp 1 chỉ vùng code, Cấp 4 dùng lại đề/biến gốc, Cấp 3 tụt về Cấp 2), kèm không từ chối lỗi cú pháp/môi trường (`B10, B24`), hỏi thiếu nhãn (`B18`) và lộ toán tử `'/'` (`B23`).
+- **Đã sửa:** Siết prompt từng cấp + mở rộng `check_no_solution` + chặn sớm lỗi cú pháp/môi trường + gom nhiều nhãn thiếu trong 1 câu → kết quả tăng từ **13/24 (54%) lên 22/24 (92%)** (`thuong 12/12`, `tu_choi 4/4`, 0 câu tệ đi về chất lượng).
+- **Còn lại:** `B08` chưa nói tường minh thiếu thông tin test ẩn; `B23` gặp `TimeoutError` 60s do mạng (cần thêm retry/timeout ngắn ở `codebase/ai.py`).

@@ -23,6 +23,16 @@ NGUONG_TU_KHOA = 3                                # lookup_lab: không trùng t�
 # Tên có sẵn của Python (range, len, print, for, if…) — trùng tên này không tính là "dùng lại tên của bài"
 TEN_CO_SAN = set(keyword.kwlist) | set(dir(builtins))
 CUM_LO_LOI_GIAI = ["sửa thành", "đổi thành", "thay bằng", "thay thành", "đáp án là", "lời giải là", "code đúng là"]
+TU_KHOA_CODE_CAP1 = [
+    r"\brange\s*\(", r"\bfor\s+", r"\bwhile\s+", r"\bif\s+", r"\breturn\b",
+    r"\bdef\s+", r"\blen\s*\(", r"\belse\b", r"\belif\b",
+]
+TOAN_TU_THAY_THE = [
+    ("//", r"(?<![/\\])['`\"]/(?![/\\])['`\"]", "'/' thay cho '//'"),
+    (">", r"['`\"]>=\s*['`\"]", "'>=' thay cho '>'"),
+    ("<", r"['`\"]<=\s*['`\"]", "'<=' thay cho '<'"),
+    ("=", r"['`\"]\+=['`\"]", "'+=' thay cho '='"),
+]
 
 
 # ---------------------------------------------------------------- parse_input
@@ -100,11 +110,11 @@ def check_no_solution(answer: str, student_code: str, muc: int = 1) -> dict:
 
     Không đạt khi:
     1. có khối code ``` ;
-    2. có cụm kiểu "sửa thành", "đáp án là"…;
-    3. có đoạn trong `...` dùng tên biến/hàm của bài mà KHÔNG phải trích nguyên văn code học viên
-       (dấu hiệu code đã sửa, vd `range(1, n+1)`);
-    4. cấp 4: đoạn `...` dùng lại tên biến/hàm của bài gốc (ví dụ tương tự phải là bài khác);
-    5. sai định dạng: rỗng, không có đúng 1 dấu "?", hoặc dài hơn MAX_TU từ.
+    2. có cụm kiểu "sửa thành", "đáp án là"… hoặc lộ toán tử thay thế trực tiếp ('/' thay '//', '>=' thay '>'…);
+    3. cấp 1: chỉ vào vùng code (có backtick `...`, tên hàm/từ khoá code như range/for/if/return/len);
+    4. có đoạn trong `...` dùng tên biến/hàm của bài mà KHÔNG phải trích nguyên văn code học viên;
+    5. cấp 4: dùng lại tên biến/hàm bài gốc (ở cả `...`, '...' hoặc trong câu trả lời);
+    6. sai định dạng: rỗng, không có đúng 1 dấu "?", hoặc dài hơn MAX_TU từ.
     """
     a = (answer or "").strip()
     if not a:
@@ -116,8 +126,35 @@ def check_no_solution(answer: str, student_code: str, muc: int = 1) -> dict:
         if cum in thap:
             return {"ok": False, "ly_do": "có cụm '%s'" % cum}
 
+    # Chặn lộ toán tử thay thế trực tiếp (vd code dùng // mà câu hỏi nhắc '/')
+    for goc, mau_thay, mo_ta in TOAN_TU_THAY_THE:
+        if goc in student_code and re.search(mau_thay, a):
+            if goc == ">" and ">=" in student_code:
+                continue
+            if goc == "<" and "<=" in student_code:
+                continue
+            if goc == "=" and "+=" in student_code:
+                continue
+            return {"ok": False, "ly_do": "lộ toán tử thay thế trực tiếp (%s)" % mo_ta}
+
     ten_bai = _ten(student_code)
     code_gon = _gon(student_code)
+
+    # Cấp 1 (Quan sát): chưa được chỉ tên dòng/hàm/vùng code
+    if muc == 1:
+        if "`" in a:
+            return {"ok": False, "ly_do": "cấp 1 không được trích dẫn code trong dấu `...`"}
+        for mau in TU_KHOA_CODE_CAP1:
+            if re.search(mau, a):
+                return {"ok": False, "ly_do": "cấp 1 không được chỉ vào cấu trúc/hàm code"}
+
+    # Cấp 4 (Ví dụ tương tự): không được dùng lại tên biến/hàm dài >= 3 ký tự của bài gốc ở bất kỳ đâu
+    if muc >= 4:
+        ten_bai_dai = {t for t in ten_bai if len(t) >= 3}
+        trung_toan_cau = _ten(a) & ten_bai_dai
+        if trung_toan_cau:
+            return {"ok": False, "ly_do": "cấp 4 dùng lại tên của bài gốc: %s" % ", ".join(sorted(trung_toan_cau))}
+
     for doan in re.findall(r"`([^`]+)`", a):
         dung_ten_bai = _ten(doan) & ten_bai
         if not dung_ten_bai:

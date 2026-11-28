@@ -113,7 +113,7 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi AI ở quyết định trung tâm | **Đã có connector, chưa xác nhận chạy thật** | `codebase/ai.py` hỗ trợ Gemini; cần điền key/model vào `.env`, chạy `python run.py eval --try` và xác nhận token > 0 trước khi ghi là AI thật. |
+| Lời gọi AI ở quyết định trung tâm | **Thật** (`gemini-3.1-flash-lite`) | Đã nối Gemini API trong `codebase/ai.py` với token usage thật; đã chạy `eval/run-1.csv` (13/24 = 54%), `eval/run-3.csv` (19/24 = 79%) và mô phỏng 50 phiên `cost/simulate-1.csv`. |
 | Giao diện demo | Bản Tkinter | Nhận đề, code nhiều dòng, test; có nút tăng cấp gợi ý. |
 
 ## Dùng AI vào việc gì

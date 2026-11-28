@@ -40,6 +40,6 @@ Khung chỉ dùng thư viện chuẩn của Python. Thêm thư viện thì ghi v
 
 ## Quy ước của nhóm
 
-- Ngôn ngữ trả lời người dùng: __
-- Phong cách code / đặt tên: __
-- Ai duyệt thay đổi do agent tạo trước khi commit: __
+- Ngôn ngữ trả lời người dùng: Tiếng Việt
+- Phong cách code / đặt tên: Python chuẩn PEP 8 (chỉ dùng thư viện chuẩn), nhánh theo mẫu `feature/<mảng>-<nội-dung>`, commit theo Conventional Commits
+- Ai duyệt thay đổi do agent tạo trước khi commit: Thành viên phụ trách mảng tương ứng kiểm tra kỹ trước khi mở PR; đội trưởng (Lê Đoàn Dương) hoặc thành viên cặp kiểm duyệt trước khi merge vào `main`

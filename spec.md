@@ -232,4 +232,4 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-| — | Chưa có thay đổi sau CP4 được ghi nhận; cập nhật tại đây nếu phát sinh trước 23:59. | — |
+| 28/11 14:32 (Tuấn) | Rà soát cuối CP4: thêm retry 1 lần khi gặp HTTP 503/timeout trong `codebase/ai.py`; sửa trạng thái nút tăng cấp khi thiếu đề/code/test hoặc lỗi API và ép kiểu `int(float(...))` trong `codebase/app.py`; cập nhật trạng thái AI thật trong `README.md`, bổ sung khai báo AI của Tuấn trong `docs/ai-usage.md` và điền quy ước nhóm trong `AGENTS.md`. | Khắc phục lỗi treo/503 khi demo live, tránh nhảy nhầm cấp trong UI khi thiếu thông tin hoặc lỗi mạng, và sửa mục `README.md` còn ghi cũ "chưa xác nhận chạy thật". Không sửa chuẩn "đạt", câu thử, số bằng chứng hay kết quả các lượt đã chạy. |

@@ -111,7 +111,7 @@ def _run_gui():
         def _ve(self, _e=None):
             if self.tu_cao:
                 can = self.trong.winfo_reqheight() + 2 * self.pad + self.lech
-                if int(self["height"]) != can:
+                if int(float(self["height"])) != can:
                     self.configure(height=can)
             w, h = self.winfo_width(), self.winfo_height()
             self.delete("nen")
@@ -149,7 +149,7 @@ def _run_gui():
 
         def _ve(self, nen):
             self.delete("all")
-            w, h = int(self["width"]), int(self["height"])
+            w, h = int(float(self["width"])), int(float(self["height"]))
             _bo_goc(self, 0, 0, w, h, 10, fill=nen, outline="")
             self.create_text(w / 2, h / 2, text=self.text, font=self.f,
                              fill=self.mau["chu"] if self.bat else self.mau["chu_tat"])
@@ -324,7 +324,8 @@ def _run_gui():
             so.configure(fg=chu)
             ten.configure(fg=chu, font=(ui, 9, "bold" if n == st["muc"] else "normal"))
         mo_ta.configure(text="Cấp %d  ·  %s" % (st["muc"], MO_TA_CAP[st["muc"]]))
-        nut_tiep.dat_bat(st["muc"] < 4 and bool(st["lich_su"]) and not st["dang_chay"])
+        du_thong_tin = bool(st["bai"]) and all(st["bai"])
+        nut_tiep.dat_bat(st["muc"] < 4 and bool(st["lich_su"]) and du_thong_tin and not st["dang_chay"])
         nut_hoi.dat_bat(not st["dang_chay"])
 
     def ve_goi_y(dang_cho=False, loi=None):
@@ -388,6 +389,8 @@ def _run_gui():
                 ", ".join(summary["models"]) or "không gọi", summary["model_calls"], summary["tool_calls"],
                 summary["tokens_in"], summary["tokens_out"], giay))
         else:
+            if st["lich_su"] and muc > st["lich_su"][-1][0]:
+                st["muc"] = st["lich_su"][-1][0]
             ve_goi_y(loi="Không tạo được gợi ý — thử lại sau vài giây.\n(%s)" % noi_dung[:200])
             status.configure(text="Lỗi khi gọi trợ lý")
         ve_cap()

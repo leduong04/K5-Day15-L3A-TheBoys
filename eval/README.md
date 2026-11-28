@@ -42,9 +42,12 @@ Dùng 3 nguồn với mục đích khác nhau (chi tiết tại `data/DATA_CARD.
 |---|---|---|---|---|---|---|
 | 1 | `run-1@20261128-092750` | `gemini-3.1-flash-lite` | Workflow cố định CP3 (`parse_input` → `lookup_lab` → `call_model` → `check_no_solution`), prompt 4 cấp bản đầu | 13/24 | 54% | Chưa |
 | 2 | `run-2@20261128-100327` | `gemini-3.1-flash-lite` | Cùng cấu hình; 19 câu có output, B19 và B21–B24 lỗi HTTP 429 do quota/phút | Chưa chấm / 24 | — | Chưa thể kết luận |
+| 3 | `run-3@20261128-123515` | `gemini-3.1-flash-lite` | Sau 1 lần cải tiến (PR #7): chèn yêu cầu + ví dụ riêng cho từng cấp (`agent.py`), thêm `kiem_cap()` trong `check_no_solution` (`tools.py`); 1 câu `B22` lỗi kỹ thuật HTTP 503 | **19/24** *(19/23 có output)* | **79%** *(83%)* | **Chưa** |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
 ## 6. Lỗi chính
 
-*(Điền sau khi chạy lượt 1 và lượt 2 — tóm 2–3 dòng từ `eval/report.md`: nhóm lỗi lớn nhất · đã sửa gì · còn lại gì.)*
+- **Nhóm lỗi lớn nhất lượt 1:** Lệch cấp gợi ý `[MUC]` (6/11 lỗi: `B01, B04, B13, B16, B17, B19`), kèm không từ chối lỗi cú pháp/môi trường (`B10, B24`), hỏi thiếu nhãn (`B18`), thiếu căn cứ test ẩn (`B08`) và lộ toán tử `'/'` (`B23`).
+- **Đã sửa (PR #7):** Chèn yêu cầu + ví dụ riêng theo cấp đang hỏi, bắt buộc gọi tên `khai_niem` ở Cấp 3 và thêm `kiem_cap()` chặn trích code Cấp 1 / tên biến bài gốc Cấp 4 → nhóm lệch cấp tăng **0/6 → 5/6**, tổng đạt tăng **13/24 (54%) → 19/24 (79%)** (hay **19/23 = 83%** bỏ `B22` lỗi kỹ thuật HTTP 503), `thuong` tăng **50% → 92%**, **0 câu tệ đi về chất lượng**.
+- **Còn lại:** `B04` (Cấp 4 ví dụ sai logic 0m < 1m50 & lộ hướng chọn phần tử đầu), `B10` (chưa từ chối `SyntaxError`), `B08` (chưa nói rõ thiếu test ẩn), `B18` (chỉ hỏi 1 trong 2 nhãn thiếu) và `B22` (lỗi API HTTP 503).

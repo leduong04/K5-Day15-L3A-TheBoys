@@ -6,6 +6,7 @@ outputs must never be reported as a real evaluation.
 """
 import json
 import os
+import time
 import urllib.error
 import urllib.request
 
@@ -33,22 +34,31 @@ MODEL_NAME = (os.environ.get("MODEL_NAME") or "").strip()
 API_KEY = (os.environ.get("API_KEY") or os.environ.get("GEMINI_API_KEY") or "").strip()
 
 
-def _post_json(url, headers, body, timeout=60):
-    request = urllib.request.Request(
-        url,
-        data=json.dumps(body, ensure_ascii=False).encode("utf-8"),
-        method="POST",
-        headers={"Content-Type": "application/json", **headers},
-    )
-    try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            return json.loads(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as exc:
-        # Do not include request headers or credentials in diagnostics.
-        detail = exc.read().decode("utf-8", "replace")[:500]
-        raise RuntimeError("Gemini API HTTP %d: %s" % (exc.code, detail)) from None
-    except urllib.error.URLError as exc:
-        raise RuntimeError("Không kết nối được Gemini API: %s" % exc.reason) from None
+def _post_json(url, headers, body, timeout=45, retries=1):
+    payload = json.dumps(body, ensure_ascii=False).encode("utf-8")
+    req_headers = {"Content-Type": "application/json", **headers}
+    for attempt in range(retries + 1):
+        request = urllib.request.Request(url, data=payload, method="POST", headers=req_headers)
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            # Do not include request headers or credentials in diagnostics.
+            detail = exc.read().decode("utf-8", "replace")[:500]
+            if exc.code == 503 and attempt < retries:
+                time.sleep(3)
+                continue
+            raise RuntimeError("Gemini API HTTP %d: %s" % (exc.code, detail)) from None
+        except TimeoutError:
+            if attempt < retries:
+                time.sleep(2)
+                continue
+            raise RuntimeError("Gemini API quá thời gian chờ (%ds)." % timeout) from None
+        except urllib.error.URLError as exc:
+            if isinstance(exc.reason, TimeoutError) and attempt < retries:
+                time.sleep(2)
+                continue
+            raise RuntimeError("Không kết nối được Gemini API: %s" % exc.reason) from None
 
 
 def _call_gemini(system, user):

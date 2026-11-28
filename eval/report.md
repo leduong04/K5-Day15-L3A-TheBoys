@@ -1,7 +1,7 @@
-# Báo cáo đánh giá — lượt 1 → một cải tiến → lượt 2
+# Báo cáo đánh giá — lượt 1 → một cải tiến → lượt 3 (lượt 2 chạy lặp lỗi 429)
 
-> Điền ở guide bước 4.1. Lượt 1 trước **CP3 10:00 Thứ Bảy 28/11**, lượt 2 trước **CP4 14:30 Thứ Bảy 28/11**, cùng bộ câu thử, cùng cách chấm. Chấm ở rubric R5.
-> Số lấy từ `python run.py score eval/run-1.csv` (và `run-2.csv`) sau khi điền cột `pass`. **Kết quả thấp ghi thật vẫn đủ điểm.**
+> Điền ở guide bước 4.1. Lượt 1 trước **CP3 10:00 Thứ Bảy 28/11**, lượt sau cải tiến trước **CP4 14:30 Thứ Bảy 28/11**, cùng bộ câu thử 24 câu, cùng cách chấm. Chấm ở rubric R5.
+> Số lấy từ `python run.py score eval/run-1.csv` và `eval/run-3.csv` sau khi điền cột `pass`. **Kết quả thấp ghi thật vẫn đủ điểm.**
 > Không được: sửa chuẩn "đạt", bỏ câu thử trượt, sửa `expected` cho khớp output, sửa kết quả lượt đã chạy.
 
 ## 1. Kết quả
@@ -9,9 +9,10 @@
 | Lượt | Run ID | Đạt / tổng | % | thuong | kho | tu_choi | So với chuẩn "đạt" |
 |---|---|---|---|---|---|---|---|
 | 1 | `run-1@20261128-092750` | 13/24 | 54% | 6/12 (50%) | 5/8 (62%) | 2/4 (50%) | **chưa** (< 85%, có 1 câu lộ toán tử sửa `B23` và 2/4 `tu_choi` trượt) |
-| 2 | `run-2@20261128-100327` | Chưa chấm / 24 (19 câu có output, 5 câu lỗi API 429) | — | — | — | — | Chưa thể kết luận |
+| 2 | `run-2@20261128-100327` | Chưa chấm / 24 (19 câu có output, 5 câu lỗi API 429) | — | — | — | — | Chưa thể kết luận *(chạy cùng cấu hình lượt 1, không có cải tiến)* |
+| 3 | `run-3@20261128-123515` | **19/24** *(19/23 có output)* | **79%** *(83% có output)* | **11/12 (92%)** | **5/8 (62%)** *(5/7 có output)* | **3/4 (75%)** | **chưa** (< 85%, còn `B04` lộ hướng sửa và `B10` chưa từ chối cú pháp; `B22` lỗi kỹ thuật API 503) |
 
-Kết quả từng câu: `eval/run-1.csv`, `eval/run-2.csv`. Trace: `traces/run-1.jsonl`, `traces/run-2.jsonl`.
+Kết quả từng câu: `eval/run-1.csv`, `eval/run-2.csv`, `eval/run-3.csv`. Trace: `traces/run-1.jsonl`, `traces/run-2.jsonl`, `traces/run-3.jsonl`.
 
 ## 2. Lỗi lượt 1 — gom thành nhóm có tên
 
@@ -34,10 +35,27 @@ Kết quả từng câu: `eval/run-1.csv`, `eval/run-2.csv`. Trace: `traces/run-
 
 ## 3. Một lần cải tiến
 
-- Giữa lượt 1 và lượt 2 chưa có cải tiến prompt / luồng được ghi nhận; lượt 2 dùng cùng cấu hình để chạy lại benchmark.
-- Vì vậy chưa có so sánh trước–sau hoặc câu nào có thể kết luận là tệ đi.
+*(So sánh trước–sau là **Lượt 1 → Lượt 3**, vì Lượt 2 chạy lại cùng cấu hình Lượt 1, không có cải tiến và gặp lỗi quota HTTP 429.)*
+
+- **Nhắm vào nhóm lỗi:** Lệch cấp gợi ý `[MUC]` (`B01, B04, B13, B16, B17, B19` — 6/11 lỗi ở lượt 1) — **vì sao là nhóm đau nhất với người dùng:** đây là nhóm lỗi lớn nhất, khiến học viên ở Cấp 1 bị nhảy thẳng vào dòng code trước khi tự quan sát hoặc ở Cấp 4 bị lặp lại đề/biến gốc, làm mất mục tiêu học debug từng bước.
+- **Đã sửa gì (commit `b19c882` / PR #7 — Hiếu):**
+  1. `codebase/agent.py`: chèn yêu cầu + ví dụ riêng cho đúng cấp đang hỏi (dùng bài ví dụ `dem_tu`, không thuộc bộ thử); thêm trường `khai_niem` trong JSON để Cấp 3 bắt buộc gọi tên khái niệm; gọi lại kèm lý do lệch cấp khi bị loại.
+  2. `codebase/tools.py`: bổ sung hàm `kiem_cap()` trong `check_no_solution` — Cấp 1 chặn trích code/tên biến/lệnh trong code, Cấp 4 chặn dùng lại tên hàm/tham số/biến của bài gốc.
+- **Kết quả (Lượt 1 → Lượt 3):**
+  - Nhóm lệch cấp (`B01, B04, B13, B16, B17, B19`): **`0/6 → 5/6` đạt** (`B01, B13, B16, B17, B19` đạt; riêng `B04` trượt vì ví dụ thước đo 0m với nhóm < 1m50 sai logic minh hoạ và cụm *"bạn nên chọn giá trị khởi tạo nào để đại diện cho người đầu tiên trong danh sách"* lộ trực tiếp hướng sửa khởi tạo bằng phần tử đầu).
+  - Cải thiện thêm ngoài nhóm mục tiêu: `B23` (không còn lộ toán tử `'/'`) và `B24` (đã từ chối rõ lỗi cài đặt/cấu hình phần mềm) đều chuyển từ `0 → 1`.
+  - Tổng: **`13/24 (54%)` → `19/24 (79%)`** (tăng +25%; tính trên 23 câu có output là **`19/23 = 83%`**). Theo loại: `thuong 6/12 (50%) → 11/12 (92%)`, `kho 5/8 (62%) → 5/8 (62%, hay 5/7 = 71% có output)`, `tu_choi 2/4 (50%) → 3/4 (75%)`.
+- **Câu nào tệ đi sau khi sửa:** **0 câu tệ đi về chất lượng câu trả lời** (12/12 câu đạt ở lượt 1 có output đều tiếp tục đạt 100% ở lượt 3). Riêng `B22` bị **lỗi kỹ thuật API HTTP 503** (model quá tải, không có output) — ghi `pass=0` trong CSV theo quy định của script `score` nhưng báo riêng là lỗi kỹ thuật, không tính là trượt hành vi.
 
 ## 4. Còn lại
 
-- Lượt 2 gặp HTTP 429 do vượt giới hạn yêu cầu/phút của free tier tại `B19`, `B21`–`B24`; các hàng lỗi không có output để chấm. Toàn bộ cột `pass` của run 2 còn trống, nên không có điểm x/24 cho lượt này.
-- Lượt 1 vẫn cho thấy lỗi hành vi ở cấp gợi ý, từ chối ngoài phạm vi và rò rỉ gợi ý sửa. Sau khi quota được làm mới, chạy lại thành lượt mới với `--wait 6` (không sửa CSV run 2); chấm riêng tất cả output theo `metric_spec.yaml`.
+- **Lỗi chưa sửa + nguy hiểm thế nào:**
+  1. **`B04` (Cấp 4 — lộ hướng sửa & ví dụ sai logic):** cụm *"để đại diện cho người đầu tiên trong danh sách"* gợi trực tiếp đáp án `ds[0]`, còn ví dụ 0m cho nhóm < 1m50 không tương đương lỗi số âm < 0 (có thể làm học viên hiểu sai bản chất lỗi).
+  2. **`B10` (`tu_choi` — lỗi cú pháp `SyntaxError`):** trợ lý vẫn gợi ý sửa cú pháp dòng 1 thay vì từ chối ngoài phạm vi (khiến `tu_choi` đạt 3/4 = 75%, chưa đạt ngưỡng cứng 100%).
+  3. **`B08` (Lớp 1 — hỏi test ẩn):** chưa nêu rõ trợ lý không có thông tin bộ test ẩn số 5 của lớp L3A (rủi ro học viên hiểu nhầm AI biết trước bộ test chấm).
+  4. **`B18` (Lớp 2 — thiếu cả `[DE]` và `[TEST]`):** chỉ hỏi lại mỗi `[DE]`, chưa hỏi gom đủ cả 2 nhãn thiếu trong 1 lượt.
+  5. **`B22` (lỗi kỹ thuật HTTP 503):** cần cơ chế retry có backoff khi Gemini trả 503/timeout.
+- **Nếu có thêm 1 tuần:**
+  1. Bổ sung chặn sớm lỗi cú pháp (`SyntaxError`/`IndentationError`) và hỏi gom nhiều nhãn thiếu trong `codebase/agent.py`, kèm luật bắt buộc nói rõ thiếu căn cứ khi hỏi về test ẩn (`B08`).
+  2. Siết prompt Cấp 4 không gợi thẳng *"phần tử đầu tiên"* và thêm kiểm tra logic ví dụ cho trường hợp số âm (`B04`).
+  3. Thêm retry 1–2 lần khi gặp HTTP 503/timeout trong `codebase/ai.py` (`B22`), mở rộng `data/labs.json` và thử nghiệm với ≥ 5 học viên L3A (`validation/log.md`).

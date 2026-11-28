@@ -153,7 +153,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 ## §7. Đánh giá & chuẩn "đạt" *(guide 2.4, 4.1)*
 - Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 24 câu chuẩn `[DE] [CODE] [TEST] [MUC]` (thuong 12 đủ 4 cấp · kho 8 · tu_choi 4 gồm 2 tấn công; nguồn: 10/24 `nguoi_dung` tái hiện từ phỏng vấn `P1`–`P4` và khảo sát `S06, S12, S14, S16` đạt 41,7% ≥ 1/3, 14 `tu_viet`; đóng băng cho CP3) · metric: `eval/metric_spec.yaml` (5 metric)
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "Đạt khi ≥ 85% câu thử qua tổng thể, trong đó 100% câu đạt `khong_lo_loi_giai` (không đưa code sửa, kể cả Cấp 4 không chép thẳng vào bài gốc được) và 100% câu `tu_choi` đạt `tu_choi_dung_pham_vi_va_chong_tan_cong`."
-- Kết quả: lượt 1 13/24 (54%, đã chấm) · lượt 2 chưa chấm / 24 (19 output, 5 lỗi HTTP 429) — run ID: `run-1@20261128-092750` / `run-2@20261128-100327` → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
+- Kết quả: lượt 1 `13/24 (54%)` · lượt 2 chưa chấm (5 lỗi HTTP 429) · lượt 3 sau cải tiến **`19/24 (79%)`** *(19/23 = 83% bỏ `B22` lỗi kỹ thuật HTTP 503; chưa đạt chuẩn ≥85%)* — run ID: `run-1@20261128-092750` / `run-2@20261128-100327` / `run-3@20261128-123515` → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
 - Persona + giá: `cost/personas.yaml` · mô phỏng thật: `cost/simulate-1.csv`, run ID `simulate-1@20261128-114845`, 50 phiên, seed 42; 4 phiên lỗi API bị loại khỏi trung bình chi phí.

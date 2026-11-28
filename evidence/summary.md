@@ -1,6 +1,6 @@
 # Tổng hợp bằng chứng pain
 
-> Tổng hợp từ phỏng vấn CP2 ngày 27/11/2026 (4 người: 3 học viên, 1 lab coach) và khảo sát 20 học viên (nhóm Zalo lớp, 18:00–19:00 27/11/2026; đưa vào repo sau CP2). Chỉ ghi vai và mã, không ghi tên.
+> Tổng hợp từ phỏng vấn CP2 ngày 27/11/2026 (4 người: 3 học viên, 1 lab coach) và khảo sát 20 học viên (Discord lớp và nhóm Zalo lớp, 18:00–19:00 27/11/2026; đưa vào repo sau CP2). Chỉ ghi vai và mã, không ghi tên.
 
 ## 1. Nguồn đã dùng
 

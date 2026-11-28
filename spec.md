@@ -7,8 +7,18 @@ Track: [x] A · [ ] B · [ ] C · [ ] D · [ ] E — bài toán: trợ lý gợi
 Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data/preclass` (ngoài repo nhóm), dùng `answers.csv` và từ điển loại/cột để đếm tín hiệu hoạt động thực hành; chỉ lưu số tổng hợp tại `evidence/data-mining.md`, giới hạn đã ghi ở `data/DATA_CARD.md`.
 
 ## §0. Hiện tại việc này diễn ra thế nào *(guide 1.1)*
-- Luồng hiện tại của việc này, trong khoá hoặc trên app thật (3–5 bước; ảnh chụp từ tài khoản của mình, đã che thông tin):
+- Luồng hiện tại của việc này, trong khoá hoặc trên app thật (3–5 bước; ảnh chụp từ tài khoản của mình, đã che thông tin) — ghép từ lời kể P1–P4 và khảo sát:
+  1. Học viên chạy code Python Mini Lab với input mẫu / test; code không báo lỗi nhưng kết quả khác mong đợi (P1: tổng thấp hơn; P2: trung bình cao hơn đáp án mẫu; P3: sai ở giá trị sát ngưỡng).
+  2. Tự kiểm: đọc lại đề và code, `print` biến trung gian, chạy tay với input nhỏ (khảo sát: đọc lại code 10/16, `print` 8/16, input nhỏ 6/16).
+  3. Chưa ra thì tìm trợ giúp: dán code vào ChatGPT / AI khác (7/16; P3), hỏi bạn (4/16; P2), hoặc giơ tay chờ lab coach (P4: 4 lượt trong một buổi ~18 học viên, 5–10 phút mỗi lượt, có bạn phải chờ).
+  4. Sửa code, chạy lại input nhỏ và test mẫu. Kết quả lần gần nhất (khảo sát, n=19): xong 12 · xong một phần 5 · bỏ 2; người dùng AI / lời giải thường chỉ hiểu một phần vì sao sai (0/8 giải thích được đầy đủ).
+  - Ảnh chụp luồng trên app thật (tài khoản của Văn, đã che ảnh đại diện):
+    - Trước bước 1 — nhận đề Mini Lab: repo mẫu trên GitHub gồm `starter-code/`, `tests/`, `README.md` hướng dẫn từng bước: `evidence/screenshots/luong-1.png`
+    - Bước 1–2 — chạy `pytest`: code chạy được, không báo lỗi cú pháp, nhưng 1 test trượt (`1 failed, 7 passed`). Thông báo chỉ nói kết quả thiếu `'GPT-4o'` trong bảng, không chỉ ra dòng nào trong code gây sai, nên học viên phải tự khoanh vùng: `evidence/screenshots/luong-2.png`
 - Công cụ / AI đang được dùng cho việc này (nếu có) + nguồn. Không kiểm được thì ghi "chưa kiểm":
+  - ChatGPT / AI khác: 7/16 người trả lời khảo sát đã dùng (`evidence/survey/results.csv`); P3 dán một đoạn hàm để hỏi trường hợp biên (`evidence/interviews/P3.md`).
+  - Lab coach hỏi dự đoán từng bước + input nhỏ + `print` (`evidence/interviews/P4.md`).
+  - Nền tảng học AI20K có chức năng nhắn AI (thấy trong `chat.csv` / `events.csv` của data pre-class BTC, `evidence/data-mining.md` mục 2) — có dùng được cho Python Mini Lab hay không: chưa kiểm.
 
 ## §1. Người dùng & bằng chứng *(guide 1.1, 1.2)*
 - Người dùng chính (một vai cụ thể): học viên AI20K lớp L3A đã học Python cơ bản, đang tự làm Python Mini Lab và gặp trường hợp code chạy được (không báo lỗi) nhưng kết quả sai so với đề / test.
@@ -21,13 +31,26 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 
 | Hướng | Bao nhiêu người gặp | Bao nhiêu lần / tháng | Mỗi lần tốn gì | Impact / tháng | Làm kịp không | Chọn? |
 |---|---|---|---|---|---|---|
-|  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |
-|  |  |  |  |  |  |  |
+| **A. Gợi ý từng bước (Socratic) để học viên L3A tự tìm lỗi logic** | ~13 / 18 học viên một buổi (L3A 7/10 nói tốn công nhất ở tìm lỗi logic) | ~3 (P1 3, P3 4) | ~30 phút (L3A trên 30 phút 6/10; P1 30, P3 20) | **~1.170 phút ≈ 19,5 giờ** | Kịp — lát cắt một lượt một câu hỏi đã chốt CP2, khung code đã có | ✅ |
+| B. Giải thích đề / yêu cầu test | ~4 / 18 (L3A 2/10 chọn "hiểu đề") | chưa có số riêng | chưa có số riêng | chưa tính được (ít người hơn A khoảng 3 lần) | Kịp, nhưng là việc khác: cần đọc đề chứ không phải lần theo code | ❌ |
+| C. Hỗ trợ lỗi cú pháp / môi trường / chạy file | ~2 / 18 (L3A 1/10) | chưa có số riêng | dưới 5 phút (S14) | nhỏ: ~2 × ? × 5 phút | Không — môi trường mỗi máy khác nhau, ngoài phạm vi | ❌ |
+| D. Giảm hàng chờ lab coach (công cụ cho người dạy) | 1 coach / buổi ~18 học viên | 4 lượt / buổi; số buổi / tháng chưa kiểm | 5–10 phút / lượt (P4) | ~30 phút coach / buổi × số buổi / tháng | Kịp một phần, nhưng người dùng là coach, không phải học viên | ❌ |
 
-- **Impact / tháng** của hướng chọn = __ người × __ lần × __ phút = __ — nguồn từng thừa số: __ (không có nguồn thì ghi rõ *(tự ước tính)*)
+- **Impact / tháng** của hướng chọn = **13 người × 3 lần × 30 phút = 1.170 phút (~19,5 giờ)** — nguồn từng thừa số:
+  - 13 người = 18 học viên một buổi lab (P4, lab coach nhớ "khoảng 18"; *chưa kiểm đây có phải sĩ số L3A*) × 7/10 học viên L3A trong khảo sát chọn "tìm chỗ sai trong logic" → 12,6, làm tròn 13 *(tự ước tính từ hai nguồn trên)*.
+  - 3 lần / tháng = tự báo của hai học viên L3A được phỏng vấn (P1: 3, P3: 4), lấy số thấp. Khảo sát hỏi "số lần trong 1 tuần qua" ra trung vị 3 / tuần ở L3A — nếu đúng thì tần suất cao hơn nhiều; chọn số phỏng vấn cho thận trọng.
+  - 30 phút = mốc của P1 (L3A) và khoảng chọn nhiều nhất của L3A trong khảo sát ("trên 30 phút" 6/10); P3 mất 20 phút. Số tự báo, chưa đo thật.
 - Hướng ĐÃ LOẠI + vì sao (giữ lại, đừng xoá):
+  - **B. Giải thích đề:** chỉ 4/19 người nói vướng nhất ở hiểu đề (L3A 2/10), so với 14/19 ở tìm lỗi logic; giả thuyết thay thế số 2 trong `evidence/hypothesis.md` không được ủng hộ.
+  - **C. Lỗi cú pháp / môi trường:** 1/19 (S14, xử lý dưới 5 phút; thực ra là chạy nhầm file); giả thuyết thay thế số 3 không được ủng hộ.
+  - **D. Công cụ cho lab coach:** pain có thật (4 lượt / buổi, có bạn phải chờ — P4) nhưng người dùng chính là coach; nhóm giữ học viên làm người dùng chính. Lát cắt A nếu chạy tốt có thể giảm lượt hỏi coach — chưa đo.
 - Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8):
+
+  | Kiểu người dùng | Số lần / tháng | Nguồn |
+  |---|---|---|
+  | Học viên L3A | 3–4 (phỏng vấn); khảo sát tự báo trung vị 3 / tuần | P1, P3; `evidence/survey/results.csv` (n=10 L3A đã gặp) |
+  | Học viên L3B | 2 (phỏng vấn); khảo sát tự báo trung vị 2 / tuần | P2; `evidence/survey/results.csv` (n=9 L3B) |
+  | Lab coach (lượt được hỏi) | 4 lượt / buổi; số buổi / tháng chưa kiểm | P4 |
 
 ## §3. Giải pháp tương tự *(guide 2.1)*
 - [sản phẩm / tính năng gần giống]: một điều đáng học · một điều đáng né · mình khác gì
@@ -196,7 +219,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
 | 27/11/2026 22:38 ICT | Điền §0–§3, §5–§6 theo phỏng vấn; lập persona/giá; sửa phân lớp eval; ghi khai báo AI; chạy `simulate --try` 10 phiên ở mode fake (0 token, không tính). | CP3 phân công Dương; căn cứ P1–P4, giới hạn ở `evidence/summary.md`, và B04–B18 trong benchmark. Giá theo bảng Gemini API xem 27/11/2026; lượt thử mock vì `codebase/ai.py` chưa nối model thật. |
-| 27/11 (Văn) | Thêm khảo sát 20 học viên (11 L3A, 9 L3B; nhóm Zalo lớp, 18:00–19:00 27/11): `evidence/survey/results.csv`, `questions.md`, `count_survey.py`; cập nhật `evidence/summary.md` (số chính, 5 trích dẫn mới, kết luận). | Bổ sung nguồn thứ hai cho bằng chứng pain: 14/19 nói tốn công nhất ở tìm lỗi logic; 0/8 người dùng AI / lời giải tự giải thích được đầy đủ; 14/19 tự báo lần gần nhất mất trên 30 phút (L3A 6/10, L3B 8/9). Phỏng vấn: 2/3 học viên mất ≥30 phút (P1=30, P2=30, P3=20 phút). Không đổi lát cắt, không đổi chuẩn "đạt" |
+| 27/11 (Văn) | Thêm khảo sát 20 học viên (11 L3A, 9 L3B; Discord lớp và nhóm Zalo lớp, 18:00–19:00 27/11): `evidence/survey/results.csv`, `questions.md`, `count_survey.py`; cập nhật `evidence/summary.md` (số chính, 5 trích dẫn mới, kết luận). | Bổ sung nguồn thứ hai cho bằng chứng pain: 14/19 nói tốn công nhất ở tìm lỗi logic; 0/8 người dùng AI / lời giải tự giải thích được đầy đủ; 14/19 tự báo lần gần nhất mất trên 30 phút (L3A 6/10, L3B 8/9). Phỏng vấn: 2/3 học viên mất ≥30 phút (P1=30, P2=30, P3=20 phút). Không đổi lát cắt, không đổi chuẩn "đạt" |
 | 28/11 08:10 (Tuấn) | Mở rộng `eval/benchmark.csv` từ 18 lên 24 câu (`B19`–`B24`: 4 câu `nguoi_dung` tái hiện từ khảo sát `S06, S12, S14, S16` + 2 câu `tu_viet` phủ `LAB-02` và gõ tự do không nhãn); cập nhật số câu ở `data/DATA_CARD.md`, `eval/README.md`, `spec.md` §7. | Đạt đủ khung 20–30 câu cho CP3 (24 câu, 10/24 = 41,7% `nguoi_dung`), phủ đủ 5 bài `data/labs.json`, tình huống đa lỗi (Lớp 4) và gõ tự do không nhãn. Không sửa `eval/metric_spec.yaml`, không sửa chuẩn "đạt". |
 | 28/11 09:18 (Dương) | Thêm connector Gemini có usage token thật, giao diện Tkinter nhận code nhiều dòng và nút tăng cấp; cập nhật hướng dẫn. | Hoàn thiện luồng để sẵn sàng chạy CP3; chưa xác nhận API thật vì môi trường không có `.env`/API key, do đó chưa tạo `eval/run-1.csv` hay video demo. |
 

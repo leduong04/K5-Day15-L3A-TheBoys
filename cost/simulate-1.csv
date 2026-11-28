@@ -1,0 +1,212 @@
+﻿run_id,session,persona,turns,inputs,model,model_calls,tool_calls,tokens_in,tokens_out,latency_s,error,tokens_by_model
+simulate-1@20261128-114845,S001,hoi_ban_vua,2,"[DE]
+Viết hàm tong_chan(n) trả về tổng các số chẵn từ 1 đến n (tính cả n nếu n c ‖ [DE]
+Viết hàm tinh_trung_binh(ds) trả về trung bình cộng của danh sách số nguyên",gemini-3.1-flash-lite,2,5,844,97,61.371,T2 TimeoutError: The read operation timed out,"{""gemini-3.1-flash-lite"": {""in"": 844, ""out"": 97}}"
+simulate-1@20261128-114845,S002,tu_debug_it,1,"[CODE]
+def tinh_tong(ds):
+    s = 0
+    for x in ds:
+        s = x
+    return s
+",,0,1,0,0,0.0,,{}
+simulate-1@20261128-114845,S003,hoi_ai_nhieu,2,"[DE]
+Viết hàm dem_nguyen_am(s) đếm số nguyên âm (a, e, i, o, u, không phân biệt  ‖ [DE]
+Viết hàm la_chan_het(ds) trả về True nếu mọi số trong danh sách đều chẵn, n",gemini-3.1-flash-lite,2,6,1552,194,2.361,,"{""gemini-3.1-flash-lite"": {""in"": 1552, ""out"": 194}}"
+simulate-1@20261128-114845,S004,hoi_ban_vua,2,"[DE]
+Viết hàm dem_lon_hon_5(ds) đếm số phần tử lớn hơn 5 trong danh sách số nguy ‖ [DE]
+Viết hàm tong_chan(n) trả về tổng các số chẵn từ 1 đến n (tính cả n nếu n c",gemini-3.1-flash-lite,2,6,1540,179,6.316,,"{""gemini-3.1-flash-lite"": {""in"": 1540, ""out"": 179}}"
+simulate-1@20261128-114845,S005,tu_debug_it,1,"[DE]
+Viết hàm chia_an_toan(a, b) trả về a / b.
+[CODE]
+def chia_an_toan(a, b):
+  ",gemini-3.1-flash-lite,1,3,671,82,1.9,,"{""gemini-3.1-flash-lite"": {""in"": 671, ""out"": 82}}"
+simulate-1@20261128-114845,S006,hoi_ban_vua,2,"[DE]
+Viết hàm tong_chan(n) trả về tổng các số chẵn từ 1 đến n (tính cả n nếu n c ‖ [DE]
+Viết hàm dem_nguyen_am(s) đếm số nguyên âm (a, e, i, o, u, không phân biệt ",gemini-3.1-flash-lite,2,6,1727,180,12.769,,"{""gemini-3.1-flash-lite"": {""in"": 1727, ""out"": 180}}"
+simulate-1@20261128-114845,S007,tu_debug_it,1,"[DE]
+Viết hàm dem_nguyen_am(s) đếm số nguyên âm (a, e, i, o, u, không phân biệt ",,1,2,0,0,1.212,"T1 RuntimeError: Gemini API HTTP 503: {
+  ""error"": {
+    ""code"": 503,
+    ""message"": ""This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."",
+    ""status"": ""UNAVAILABLE""
+  }
+}
+",{}
+simulate-1@20261128-114845,S008,hoi_ban_vua,2,"[CODE]
+def kiem_tra_hoc_bong(diem):
+    if diem > 8.0:
+        return True
+    r ‖ [DE]
+Viết hàm dem_gioi(ds) đếm số học sinh có điểm >= 8 trong danh sách ds.
+[COD",gemini-3.1-flash-lite,1,4,669,83,2.369,,"{""gemini-3.1-flash-lite"": {""in"": 669, ""out"": 83}}"
+simulate-1@20261128-114845,S009,tu_debug_it,1,"[DE]
+Viết hàm tong_chan(n) trả về tổng các số chẵn từ 1 đến n (tính cả n nếu n c",,1,2,0,0,11.039,"T1 RuntimeError: Gemini API HTTP 503: {
+  ""error"": {
+    ""code"": 503,
+    ""message"": ""This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."",
+    ""status"": ""UNAVAILABLE""
+  }
+}
+",{}
+simulate-1@20261128-114845,S010,hoi_ai_nhieu,2,"[DE]
+Viết hàm dem_so_am(ds) đếm số lượng số âm trong danh sách.
+[TEST]
+dem_so_am ‖ [DE]
+Viết hàm trung_binh_duong(ds) tính trung bình cộng các số dương (> 0) trong",gemini-3.1-flash-lite,1,4,861,83,1.649,,"{""gemini-3.1-flash-lite"": {""in"": 861, ""out"": 83}}"
+simulate-1@20261128-114845,S011,hoi_ban_vua,2,"[CODE]
+def tinh_tong(ds):
+    s = 0
+    for x in ds:
+        s = x
+    return s
+ ‖ [DE]
+Viết hàm tinh_giai_thua(n) tính n! với n >= 0.
+[CODE]
+def tinh_giai_thua(n)",,0,2,0,0,0.0,,{}
+simulate-1@20261128-114845,S012,hoi_ai_nhieu,2,"[DE]
+Viết hàm trung_binh_dat(ds) tính điểm trung bình của các điểm đạt (>= 5) tr ‖ [DE]
+Viết hàm tim_max(ds) tìm giá trị lớn nhất trong danh sách số nguyên (có thể",gemini-3.1-flash-lite,2,5,870,128,2.795,"T1 RuntimeError: Gemini API HTTP 503: {
+  ""error"": {
+    ""code"": 503,
+    ""message"": ""This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later."",
+    ""status"": ""UNAVAILABLE""
+  }
+}
+","{""gemini-3.1-flash-lite"": {""in"": 870, ""out"": 128}}"
+simulate-1@20261128-114845,S013,tu_debug_it,1,"[DE]
+Viết hàm tim_max(ds) tìm giá trị lớn nhất trong danh sách số nguyên (có thể",gemini-3.1-flash-lite,2,4,1771,223,1.919,,"{""gemini-3.1-flash-lite"": {""in"": 1771, ""out"": 223}}"
+simulate-1@20261128-114845,S014,hoi_ban_vua,2,"[DE]
+Viết hàm kiem_tra_dat(diem) trả về True nếu điểm từ 5.0 trở lên (tính cả 5. ‖ Anh ơi em làm bài viết hàm trung_binh(ds) trả về trung bình cộng số thực của dan",gemini-3.1-flash-lite,2,6,1464,173,1.95,,"{""gemini-3.1-flash-lite"": {""in"": 1464, ""out"": 173}}"
+simulate-1@20261128-114845,S015,tu_debug_it,1,"[DE]
+Viết hàm dem_lon_hon_5(ds) đếm số phần tử lớn hơn 5 trong danh sách số nguy",gemini-3.1-flash-lite,1,3,696,84,1.196,,"{""gemini-3.1-flash-lite"": {""in"": 696, ""out"": 84}}"
+simulate-1@20261128-114845,S016,hoi_ai_nhieu,2,"[DE]
+Viết hàm dem_nguyen_am(s) đếm số nguyên âm (a, e, i, o, u, không phân biệt  ‖ [DE]
+Viết hàm tim_max(ds) tìm giá trị lớn nhất trong danh sách số nguyên (có thể",gemini-3.1-flash-lite,2,6,1753,213,25.681,,"{""gemini-3.1-flash-lite"": {""in"": 1753, ""out"": 213}}"
+simulate-1@20261128-114845,S017,hoi_ai_nhieu,2,"[DE]
+Viết hàm thong_ke_dat(ds) trả về bộ (tong, dem) gồm tổng và số lượng các đi ‖ [DE]
+Viết hàm la_chan_het(ds) trả về True nếu mọi số trong danh sách đều chẵn, n",gemini-3.1-flash-lite,2,6,1370,168,2.534,,"{""gemini-3.1-flash-lite"": {""in"": 1370, ""out"": 168}}"
+simulate-1@20261128-114845,S018,hoi_ban_vua,2,"Anh ơi em làm bài viết hàm trung_binh(ds) trả về trung bình cộng số thực của dan ‖ [DE]
+Viết hàm kiem_tra_dat(diem) trả về True nếu điểm từ 5.0 trở lên (tính cả 5.",gemini-3.1-flash-lite,2,6,1464,176,2.916,,"{""gemini-3.1-flash-lite"": {""in"": 1464, ""out"": 176}}"
+simulate-1@20261128-114845,S019,hoi_ban_vua,2,"[DE]
+Viết hàm la_chan_het(ds) trả về True nếu mọi số trong danh sách đều chẵn, n ‖ [DE]
+Viết hàm dem_lon_hon_5(ds) đếm số phần tử lớn hơn 5 trong danh sách số nguy",gemini-3.1-flash-lite,2,6,1365,166,26.605,,"{""gemini-3.1-flash-lite"": {""in"": 1365, ""out"": 166}}"
+simulate-1@20261128-114845,S020,hoi_ai_nhieu,2,"[DE]
+Viết hàm tong_diem(ds) tính tổng điểm của tất cả các bài kiểm tra trong dan ‖ [DE]
+Viết hàm la_chan_het(ds) trả về True nếu mọi số trong danh sách đều chẵn, n",gemini-3.1-flash-lite,2,6,1344,197,14.321,,"{""gemini-3.1-flash-lite"": {""in"": 1344, ""out"": 197}}"
+simulate-1@20261128-114845,S021,hoi_ai_nhieu,2,"[DE]
+Viết hàm tim_max(ds) tìm giá trị lớn nhất trong danh sách số nguyên (có thể ‖ [DE]
+Viết hàm thong_ke_dat(ds) trả về bộ (tong, dem) gồm tổng và số lượng các đi",gemini-3.1-flash-lite,2,6,1571,218,10.022,,"{""gemini-3.1-flash-lite"": {""in"": 1571, ""out"": 218}}"
+simulate-1@20261128-114845,S022,tu_debug_it,1,"[DE]
+Viết hàm kiem_tra_dat(diem) trả về True nếu điểm từ 5.0 trở lên (tính cả 5.",gemini-3.1-flash-lite,1,3,666,99,2.315,,"{""gemini-3.1-flash-lite"": {""in"": 666, ""out"": 99}}"
+simulate-1@20261128-114845,S023,tu_debug_it,1,"[DE]
+Viết hàm kiem_tra_dat(diem) trả về True nếu điểm từ 5.0 trở lên (tính cả 5.",gemini-3.1-flash-lite,1,3,666,99,1.552,,"{""gemini-3.1-flash-lite"": {""in"": 666, ""out"": 99}}"
+simulate-1@20261128-114845,S024,tu_debug_it,1,"[DE]
+Viết hàm tinh_trung_binh(ds) trả về trung bình cộng của danh sách số nguyên",gemini-3.1-flash-lite,1,3,840,82,0.788,,"{""gemini-3.1-flash-lite"": {""in"": 840, ""out"": 82}}"
+simulate-1@20261128-114845,S025,hoi_ai_nhieu,2,"[DE]
+Viết hàm la_chan_het(ds) trả về True nếu mọi số trong danh sách đều chẵn, n ‖ Anh ơi em làm bài viết hàm trung_binh(ds) trả về trung bình cộng số thực của dan",gemini-3.1-flash-lite,2,6,1467,162,3.959,,"{""gemini-3.1-flash-lite"": {""in"": 1467, ""out"": 162}}"
+simulate-1@20261128-114845,S026,hoi_ban_vua,2,"[DE]
+Viết hàm dem_nguyen_am(s) đếm số nguyên âm (a, e, i, o, u, không phân biệt  ‖ [DE]
+Viết hàm chia_an_toan(a, b) trả về a / b.
+[CODE]
+def chia_an_toan(a, b):
+  ",gemini-3.1-flash-lite,2,6,1554,163,20.576,,"{""gemini-3.1-flash-lite"": {""in"": 1554, ""out"": 163}}"
+simulate-1@20261128-114845,S027,tu_debug_it,1,"[DE]
+Viết hàm thong_ke_dat(ds) trả về bộ (tong, dem) gồm tổng và số lượng các đi",gemini-3.1-flash-lite,1,3,701,83,0.908,,"{""gemini-3.1-flash-lite"": {""in"": 701, ""out"": 83}}"
+simulate-1@20261128-114845,S028,tu_debug_it,1,"[DE]
+Viết hàm dem_nguyen_am(s) đếm số nguyên âm (a, e, i, o, u, không phân biệt ",gemini-3.1-flash-lite,1,3,883,89,0.918,,"{""gemini-3.1-flash-lite"": {""in"": 883, ""out"": 89}}"
+simulate-1@20261128-114845,S029,tu_debug_it,1,"[DE]
+Viết hàm trung_binh_dat(ds) tính điểm trung bình của các điểm đạt (>= 5) tr",gemini-3.1-flash-lite,1,3,876,87,4.756,,"{""gemini-3.1-flash-lite"": {""in"": 876, ""out"": 87}}"
+simulate-1@20261128-114845,S030,hoi_ai_nhieu,2,"[DE]
+Viết hàm dem_lon_hon_5(ds) đếm số phần tử lớn hơn 5 trong danh sách số nguy ‖ [DE]
+Viết hàm chia_an_toan(a, b) trả về a / b.
+[CODE]
+def chia_an_toan(a, b):
+  ",gemini-3.1-flash-lite,2,6,1367,169,5.301,,"{""gemini-3.1-flash-lite"": {""in"": 1367, ""out"": 169}}"
+simulate-1@20261128-114845,S031,hoi_ai_nhieu,2,"[DE]
+Viết hàm trung_binh_dat(ds) tính điểm trung bình của các điểm đạt (>= 5) tr ‖ [DE]
+Viết hàm thong_ke_dat(ds) trả về bộ (tong, dem) gồm tổng và số lượng các đi",gemini-3.1-flash-lite,2,6,1577,166,6.57,,"{""gemini-3.1-flash-lite"": {""in"": 1577, ""out"": 166}}"
+simulate-1@20261128-114845,S032,tu_debug_it,1,"[DE]
+Viết hàm tinh_giai_thua(n) tính n! với n >= 0.
+[CODE]
+def tinh_giai_thua(n)",,0,1,0,0,0.0,,{}
+simulate-1@20261128-114845,S033,hoi_ai_nhieu,2,"[DE]
+Viết hàm dem_gioi(ds) đếm số học sinh có điểm >= 8 trong danh sách ds.
+[COD ‖ [DE]
+Viết hàm trung_binh_dat(ds) tính điểm trung bình của các điểm đạt (>= 5) tr",gemini-3.1-flash-lite,2,6,1545,172,2.767,,"{""gemini-3.1-flash-lite"": {""in"": 1545, ""out"": 172}}"
+simulate-1@20261128-114845,S034,tu_debug_it,1,"[DE]
+Viết hàm la_nam_nhuan(y) trả về True nếu y là năm nhuận: chia hết cho 4 như",gemini-3.1-flash-lite,1,3,904,116,3.366,,"{""gemini-3.1-flash-lite"": {""in"": 904, ""out"": 116}}"
+simulate-1@20261128-114845,S035,hoi_ban_vua,2,"[CODE]
+def kiem_tra_hoc_bong(diem):
+    if diem > 8.0:
+        return True
+    r ‖ [CODE]
+def tinh_tong(ds):
+    s = 0
+    for x in ds:
+        s = x
+    return s
+",,0,2,0,0,0.0,,{}
+simulate-1@20261128-114845,S036,tu_debug_it,1,"[DE]
+Viết hàm chia_an_toan(a, b) trả về a / b.
+[CODE]
+def chia_an_toan(a, b):
+  ",gemini-3.1-flash-lite,1,3,671,85,1.816,,"{""gemini-3.1-flash-lite"": {""in"": 671, ""out"": 85}}"
+simulate-1@20261128-114845,S037,hoi_ai_nhieu,2,"[DE]
+Viết hàm dem_nguyen_am(s) đếm số nguyên âm (a, e, i, o, u, không phân biệt  ‖ [DE]
+Viết hàm tinh_trung_binh(ds) trả về trung bình cộng của danh sách số nguyên",gemini-3.1-flash-lite,2,6,1723,171,2.284,,"{""gemini-3.1-flash-lite"": {""in"": 1723, ""out"": 171}}"
+simulate-1@20261128-114845,S038,hoi_ai_nhieu,2,"[DE]
+Viết hàm trung_binh_duong(ds) tính trung bình cộng các số dương (> 0) trong ‖ [DE]
+Viết hàm dem_gioi(ds) đếm số học sinh có điểm >= 8 trong danh sách ds.
+[COD",gemini-3.1-flash-lite,2,6,1530,171,15.893,,"{""gemini-3.1-flash-lite"": {""in"": 1530, ""out"": 171}}"
+simulate-1@20261128-114845,S039,hoi_ban_vua,2,"[DE]
+Viết hàm chia_an_toan(a, b) trả về a / b.
+[CODE]
+def chia_an_toan(a, b):
+   ‖ [CODE]
+def tinh_tong(ds):
+    s = 0
+    for x in ds:
+        s = x
+    return s
+",gemini-3.1-flash-lite,1,4,671,87,1.145,,"{""gemini-3.1-flash-lite"": {""in"": 671, ""out"": 87}}"
+simulate-1@20261128-114845,S040,hoi_ban_vua,2,"[DE]
+Viết hàm la_chan_het(ds) trả về True nếu mọi số trong danh sách đều chẵn, n ‖ [DE]
+Viết hàm dem_lon_hon_5(ds) đếm số phần tử lớn hơn 5 trong danh sách số nguy",gemini-3.1-flash-lite,2,6,1365,183,2.743,,"{""gemini-3.1-flash-lite"": {""in"": 1365, ""out"": 183}}"
+simulate-1@20261128-114845,S041,hoi_ai_nhieu,2,"[CODE]
+def tinh_tong(ds):
+    s = 0
+    for x in ds:
+        s = x
+    return s
+ ‖ [DE]
+Viết hàm dem_so_am(ds) đếm số lượng số âm trong danh sách.
+[TEST]
+dem_so_am",,0,2,0,0,0.0,,{}
+simulate-1@20261128-114845,S042,hoi_ai_nhieu,2,"[DE]
+Viết hàm trung_binh_duong(ds) tính trung bình cộng các số dương (> 0) trong ‖ Anh ơi em làm bài viết hàm trung_binh(ds) trả về trung bình cộng số thực của dan",gemini-3.1-flash-lite,2,6,1659,158,3.583,,"{""gemini-3.1-flash-lite"": {""in"": 1659, ""out"": 158}}"
+simulate-1@20261128-114845,S043,tu_debug_it,1,"[DE]
+Viết hàm thong_ke_dat(ds) trả về bộ (tong, dem) gồm tổng và số lượng các đi",gemini-3.1-flash-lite,1,3,701,83,1.154,,"{""gemini-3.1-flash-lite"": {""in"": 701, ""out"": 83}}"
+simulate-1@20261128-114845,S044,hoi_ban_vua,2,"[CODE]
+def kiem_tra_hoc_bong(diem):
+    if diem > 8.0:
+        return True
+    r ‖ [DE]
+Viết hàm tinh_tong_tien(gia_sp) trả về tổng tiền của danh sách giá sản phẩm",gemini-3.1-flash-lite,1,4,669,82,1.762,,"{""gemini-3.1-flash-lite"": {""in"": 669, ""out"": 82}}"
+simulate-1@20261128-114845,S045,tu_debug_it,1,"[DE]
+Viết hàm dem_nguyen_am(s) đếm số nguyên âm (a, e, i, o, u, không phân biệt ",gemini-3.1-flash-lite,1,3,883,78,1.539,,"{""gemini-3.1-flash-lite"": {""in"": 883, ""out"": 78}}"
+simulate-1@20261128-114845,S046,hoi_ai_nhieu,2,"[DE]
+Viết hàm tong_chan(n) trả về tổng các số chẵn từ 1 đến n (tính cả n nếu n c ‖ [DE]
+Viết hàm tim_max(ds) tìm giá trị lớn nhất trong danh sách số nguyên (có thể",gemini-3.1-flash-lite,3,7,2615,317,8.08,,"{""gemini-3.1-flash-lite"": {""in"": 2615, ""out"": 317}}"
+simulate-1@20261128-114845,S047,hoi_ai_nhieu,2,"[DE]
+Viết hàm dem_nguyen_am(s) đếm số nguyên âm (a, e, i, o, u, không phân biệt  ‖ [DE]
+Viết hàm tinh_trung_binh(ds) trả về trung bình cộng của danh sách số nguyên",gemini-3.1-flash-lite,2,6,1723,167,2.427,,"{""gemini-3.1-flash-lite"": {""in"": 1723, ""out"": 167}}"
+simulate-1@20261128-114845,S048,hoi_ai_nhieu,2,"[DE]
+Viết hàm trung_binh_dat(ds) tính điểm trung bình của các điểm đạt (>= 5) tr ‖ [DE]
+Viết hàm tim_max(ds) tìm giá trị lớn nhất trong danh sách số nguyên (có thể",gemini-3.1-flash-lite,2,6,1746,196,2.393,,"{""gemini-3.1-flash-lite"": {""in"": 1746, ""out"": 196}}"
+simulate-1@20261128-114845,S049,tu_debug_it,1,"[DE]
+Viết hàm dem_so_am(ds) đếm số lượng số âm trong danh sách.
+[TEST]
+dem_so_am",,0,1,0,0,0.0,,{}
+simulate-1@20261128-114845,S050,hoi_ban_vua,2,"[DE]
+Viết hàm tinh_trung_binh(ds) trả về trung bình cộng của danh sách số nguyên ‖ [DE]
+Viết hàm tinh_tong_tien(gia_sp) trả về tổng tiền của danh sách giá sản phẩm",gemini-3.1-flash-lite,2,6,1509,175,3.585,,"{""gemini-3.1-flash-lite"": {""in"": 1509, ""out"": 175}}"

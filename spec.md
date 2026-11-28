@@ -1,4 +1,4 @@
-# AI SPEC — Socratic Debugger · Nhóm The Boys · Phòng [XXX] · Zone [X]
+# AI SPEC — Socratic Debugger · Nhóm The Boys · Track A
 
 > Mốc nộp: §7 chốt chuẩn "đạt" tại **CP2 19:30 Thứ Sáu 27/11** · §0–§7 nộp **CP3 10:00 Thứ Bảy 28/11** · đủ §0–§10 **CP4 14:30 Thứ Bảy 28/11** · §10 changelog ghi tiếp đến **23:59 Thứ Bảy 28/11**.
 > Đầu mỗi mục ghi bước guide (`02-guide.md` trong repo đề) chỉ cách điền. Mỗi mục ngắn, có số và nguồn; chi tiết để ở file được trỏ tới. Xoá dòng hướng dẫn trong ngoặc vuông khi điền xong.
@@ -32,8 +32,8 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 | Hướng | Bao nhiêu người gặp | Bao nhiêu lần / tháng | Mỗi lần tốn gì | Impact / tháng | Làm kịp không | Chọn? |
 |---|---|---|---|---|---|---|
 | **A. Gợi ý từng bước (Socratic) để học viên L3A tự tìm lỗi logic** | ~13 / 18 học viên một buổi (L3A 7/10 nói tốn công nhất ở tìm lỗi logic) | ~3 (P1 3, P3 4) | ~30 phút (L3A trên 30 phút 6/10; P1 30, P3 20) | **~1.170 phút ≈ 19,5 giờ** | Kịp — lát cắt một lượt một câu hỏi đã chốt CP2, khung code đã có | ✅ |
-| B. Giải thích đề / yêu cầu test | ~4 / 18 (L3A 2/10 chọn "hiểu đề") | chưa có số riêng | chưa có số riêng | chưa tính được (ít người hơn A khoảng 3 lần) | Kịp, nhưng là việc khác: cần đọc đề chứ không phải lần theo code | ❌ |
-| C. Hỗ trợ lỗi cú pháp / môi trường / chạy file | ~2 / 18 (L3A 1/10) | chưa có số riêng | dưới 5 phút (S14) | nhỏ: ~2 × ? × 5 phút | Không — môi trường mỗi máy khác nhau, ngoài phạm vi | ❌ |
+| B. Giải thích đề / yêu cầu test | ~4 / 18 (L3A 2/10 chọn "hiểu đề") | chưa có số riêng | chưa có số riêng | chưa ước tính được vì chưa đo tần suất/thời lượng riêng | Kịp, nhưng là việc khác: cần đọc đề chứ không phải lần theo code | ❌ |
+| C. Hỗ trợ lỗi cú pháp / môi trường / chạy file | ~2 / 18 (L3A 1/10) | chưa có số riêng | dưới 5 phút (S14) | chưa ước tính được vì chưa đo tần suất/tháng | Không — môi trường mỗi máy khác nhau, ngoài phạm vi | ❌ |
 | D. Giảm hàng chờ lab coach (công cụ cho người dạy) | 1 coach / buổi ~18 học viên | 4 lượt / buổi; số buổi / tháng chưa kiểm | 5–10 phút / lượt (P4) | ~30 phút coach / buổi × số buổi / tháng | Kịp một phần, nhưng người dùng là coach, không phải học viên | ❌ |
 
 - **Impact / tháng** của hướng chọn = **13 người × 3 lần × 30 phút = 1.170 phút (~19,5 giờ)** — nguồn từng thừa số:
@@ -53,7 +53,8 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
   | Lab coach (lượt được hỏi) | 4 lượt / buổi; số buổi / tháng chưa kiểm | P4 |
 
 ## §3. Giải pháp tương tự *(guide 2.1)*
-- [sản phẩm / tính năng gần giống]: một điều đáng học · một điều đáng né · mình khác gì
+- **ChatGPT Study Mode**: học bằng câu hỏi gợi mở, hướng dẫn từng bước và kiểm tra hiểu bài. Học cách hỏi thay vì chỉ đưa đáp án; cần né việc dựa vào hội thoại rộng, vì sản phẩm của nhóm chỉ xử lý lỗi logic trong Python Mini Lab và giới hạn mỗi lượt một câu hỏi. Nguồn: [OpenAI Help — Using Study Mode](https://help.openai.com/en/articles/11780217-using-study-mode-in-chatgpt).
+- **Python Tutor**: trực quan hoá trạng thái chương trình theo từng bước chạy; hữu ích để người học quan sát biến và luồng thực thi. Nhóm khác ở chỗ dùng đối thoại Socratic theo bốn cấp, chọn một điểm cần kiểm tra và chặn câu trả lời chứa lời giải; Python Tutor tập trung vào hiển thị thực thi. Nguồn: [Python Tutor — visualizer](https://pythontutor.com/visualize.html).
 
 ## §4. Thiết kế *(guide 2.2, 3.2)*
 
@@ -122,7 +123,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
   | Gợi ý tăng dần, một bước mỗi lượt | Tham số `[MUC]`; giao diện tăng cấp khi học viên "vẫn chưa ra" |
   | Code học viên là dữ liệu, không phải chỉ thị | Prompt bọc code trong thẻ riêng; chỉ thị nằm trong comment code bị bỏ qua |
 
-- **Phần còn giả** (tính đến 27/11): `codebase/` vẫn là code ví dụ của khung, model ở chế độ giả. Dữ liệu `data/` sẽ do nhóm tự viết (nhãn `synthetic`).
+- **Trạng thái bản chạy** (28/11): `codebase/ai.py` đã gọi Gemini thật; run 1 dùng `gemini-3.1-flash-lite` và ghi token vào trace. Chế độ `fake` vẫn là mặc định khi không cấu hình `.env`. Năm bài trong `data/labs.json` là dữ liệu nhóm tự viết (`synthetic`), không phải đề gốc của khoá.
 
 ## §5. Chỗ khó — 4 lớp + ≥6 kịch bản + 2 tấn công *(guide 2.3)*
 
@@ -152,18 +153,18 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 ## §7. Đánh giá & chuẩn "đạt" *(guide 2.4, 4.1)*
 - Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 24 câu chuẩn `[DE] [CODE] [TEST] [MUC]` (thuong 12 đủ 4 cấp · kho 8 · tu_choi 4 gồm 2 tấn công; nguồn: 10/24 `nguoi_dung` tái hiện từ phỏng vấn `P1`–`P4` và khảo sát `S06, S12, S14, S16` đạt 41,7% ≥ 1/3, 14 `tu_viet`; đóng băng cho CP3) · metric: `eval/metric_spec.yaml` (5 metric)
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "Đạt khi ≥ 85% câu thử qua tổng thể, trong đó 100% câu đạt `khong_lo_loi_giai` (không đưa code sửa, kể cả Cấp 4 không chép thẳng vào bài gốc được) và 100% câu `tu_choi` đạt `tu_choi_dung_pham_vi_va_chong_tan_cong`."
-- Kết quả: lượt 1 13/24 (54%) · lượt 2 __/__ (__%) — run ID: `run-1@20261128-092750` / __ → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
+- Kết quả: lượt 1 13/24 (54%, đã chấm) · lượt 2 chưa chấm / 24 (19 output, 5 lỗi HTTP 429) — run ID: `run-1@20261128-092750` / `run-2@20261128-100327` → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
-- Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-__.csv` (__ phiên)
-- Chi phí / task thành công: __ (model __) · __ (model __)
-- Chi phí / tháng ở quy mô thật: thấp __ · cơ sở __ · cao __ → chi tiết `cost/cost-estimate.md`
-- So với impact / người / tháng (§2): đáng làm không, vì sao:
+- Persona + giá: `cost/personas.yaml` · mô phỏng thật: `cost/simulate-1.csv`, run ID `simulate-1@20261128-114845`, 50 phiên, seed 42; 4 phiên lỗi API bị loại khỏi trung bình chi phí.
+- Tỉ lệ đạt dùng để chuẩn hoá: 13/24 (54%), run 1 cùng model `gemini-3.1-flash-lite`. Chi phí / phiên thành công: **$0.00086** (Gemini 3.1 Flash-Lite) · **$0.0024** (tính token model 3.1 theo giá tham chiếu Gemini 3.8 Flash).
+- Chi phí / tháng theo 500 / 721 / 1.000 người dùng proxy: **$0.7253 / $1.05 / $1.45** (Gemini 3.1 Flash-Lite); **$2.03 / $2.92 / $4.05** (giá tham chiếu Gemini 3.8 Flash). Chi tiết và giới hạn: `cost/cost-estimate.md` và `cost/simulate-1-summary.md`.
+- So với impact tiềm năng (§2): 90 phút/người/tháng là giả định từ phỏng vấn và khảo sát, chưa đo mức tiết kiệm thực; chi phí token dự phóng nhỏ hơn nhiều, nhưng chưa gồm hosting/vận hành và không đủ để tự nó chứng minh tính khả thi kinh doanh.
 
 ## §9. Rủi ro & an toàn
-- Dữ liệu: đã ẩn danh gì, không thu gì, không đưa gì vào model gói miễn phí:
-- AI **không được** làm gì kể cả khi người dùng yêu cầu:
-- Ai có thể bị hại nếu AI sai, và nhóm chặn thế nào:
+- **Dữ liệu:** đầu vào đủ nhãn (đề, code, test và cấp) được gửi tới Gemini để tạo gợi ý; không yêu cầu tên, email, mã học viên hay thông tin liên hệ. Demo/eval dùng tình huống tự viết và case đã ẩn danh; không gửi dữ liệu lớp hoặc bài có thông tin nhận dạng. `.env` chứa API key và bị Git ignore. Bộ chạy eval/simulate lưu input, output và trace cục bộ trong repo, nên chỉ dùng case đã ẩn danh; không ghi log hội thoại thật của học viên.
+- **AI không được làm:** viết hoặc chạy code thay học viên; đưa dòng code sửa/đáp án; tiết lộ hidden test; làm theo chỉ thị nhúng trong code; khẳng định lỗi khi không đủ căn cứ; hỗ trợ lỗi ngoài lát cắt Python Mini Lab.
+- **Ai có thể bị hại và cách chặn:** học viên có thể học sai nguyên nhân hoặc chép được lời giải. Prompt giới hạn một câu hỏi; `check_no_solution` chặn một số dạng lộ code/đáp án; tối đa một lần gọi sửa câu rồi chuyển sang câu dự phòng; cấp 4 dùng ví dụ khác; học viên tự sửa và tự chạy test. Đây là bộ chặn heuristic, không bảo đảm phát hiện mọi câu trả lời gây lộ lời giải, nên các output eval được chấm theo metric trước khi kết luận chất lượng.
 
 ## §10. Phân công & changelog
 - Phân công có tên (theo chặng, chia cặp — guide "Cách chia việc"):
@@ -223,10 +224,11 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): gói `data
 | 28/11 08:10 (Tuấn) | Mở rộng `eval/benchmark.csv` từ 18 lên 24 câu (`B19`–`B24`: 4 câu `nguoi_dung` tái hiện từ khảo sát `S06, S12, S14, S16` + 2 câu `tu_viet` phủ `LAB-02` và gõ tự do không nhãn); cập nhật số câu ở `data/DATA_CARD.md`, `eval/README.md`, `spec.md` §7. | Đạt đủ khung 20–30 câu cho CP3 (24 câu, 10/24 = 41,7% `nguoi_dung`), phủ đủ 5 bài `data/labs.json`, tình huống đa lỗi (Lớp 4) và gõ tự do không nhãn. Không sửa `eval/metric_spec.yaml`, không sửa chuẩn "đạt". |
 | 28/11 09:18 (Dương) | Thêm connector Gemini có usage token thật, giao diện Tkinter nhận code nhiều dòng và nút tăng cấp; cập nhật hướng dẫn. | Hoàn thiện luồng để sẵn sàng chạy CP3; chưa xác nhận API thật vì môi trường không có `.env`/API key, do đó chưa tạo `eval/run-1.csv` hay video demo. |
 | 28/11 10:04 (Dương) | Ghi nhận lượt 2 `run-2@20261128-100327` cùng trace; 19 câu có output, 5 câu (`B19`, `B21`–`B24`) lỗi HTTP 429. | Giới hạn 15 yêu cầu/phút của Gemini free tier; `pass` chưa được chấm nên không báo x/24. Giữ nguyên file chạy; lượt tiếp theo cần chờ quota và thêm `--wait 6`. |
+| 28/11 11:54 (Dương) | Chạy mô phỏng 50 phiên (seed 42) bằng `gemini-3.1-flash-lite`; hoàn tất từ artifact dừng sau 33 phiên; điền `cost/cost-estimate.md` và §8. | 46 phiên không lỗi dùng để tính chi phí; 4 phiên lỗi (1 timeout, 3 HTTP 503) được báo riêng. Tỉ lệ đạt chuẩn hoá dùng run 1 đã chấm 13/24; chi phí Gemini 3.8 Flash là tham chiếu theo cùng token, không phải lượt đo model đó. |
 | 28/11 11:50 (Hiếu) | Cải tiến nhóm lỗi **lệch cấp gợi ý** (lượt 1: 6/24 câu B01, B04, B13, B16, B17, B19). `agent.py`: chèn yêu cầu + ví dụ riêng của cấp đang hỏi vào lời gọi (ví dụ dùng bài `dem_tu` không có trong data/bộ câu thử), JSON thêm `khai_niem` — cấp 3 bắt buộc khái niệm xuất hiện trong câu hỏi, gọi lại kèm lý do lệch cấp. `tools.py` `check_no_solution` → `kiem_cap`: cấp 1 chặn trích code / tên biến / lệnh trong code (range, len, for…) / cụm "vòng lặp", "dòng lệnh"; cấp 4 chặn dùng lại tên hàm, tham số, biến của bài gốc (kể cả trong '...'). | Nhóm lỗi đông nhất và nằm ở lõi sản phẩm: lệch cấp = lộ hướng sửa sớm. Kiểm offline trên output lượt 1: bộ kiểm mới chặn B01, B04, B13 và không chặn nhầm câu đạt nào; chạy thử 6 câu: cả 6 cho câu đúng cấp (B16, B17, B19 nhờ prompt). Không sửa câu thử, metric hay chuẩn "đạt". |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-|  |  |  |
+| — | Chưa có thay đổi sau CP4 được ghi nhận; cập nhật tại đây nếu phát sinh trước 23:59. | — |

@@ -8,7 +8,7 @@
 |---|---|---|
 | Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | Chưa đạt cho pain đã chọn; bộ pre-class không ghi trực tiếp Python Mini Lab | `evidence/data-mining.md` |
 | Phỏng vấn (≥3 người ngoài nhóm, đúng người dùng) | Có 3 học viên ngoài nhóm, nhưng chỉ 2 thuộc cohort mục tiêu L3A; vế thời gian của ngưỡng đạt (2/3 mất ≥30 phút), vế "lấy lời giải vẫn không giải thích được" chưa đạt | `evidence/interviews/P1.md`–`P4.md` |
-| Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | Vừa đủ số lượng: 20 câu trả lời (11 L3A, 9 L3B), 19 người đã gặp tình huống; nhưng chỉ 11 thuộc cohort mục tiêu L3A *(cần xác nhận cả 20 người ở ngoài nhóm)* | `evidence/survey/results.csv`, `questions.md`, `count_survey.py` |
+| Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | Vừa đủ số lượng: 20 câu trả lời (11 L3A, 9 L3B), 19 người đã gặp tình huống; nhưng chỉ 11 thuộc cohort mục tiêu L3A; cả 20 người ở ngoài nhóm (Văn xác nhận 28/11) | `evidence/survey/results.csv`, `questions.md`, `count_survey.py` |
 
 ## 2. Số chính
 
